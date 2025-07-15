@@ -10,6 +10,7 @@ import Properties from "@/pages/properties";
 import Portfolio from "@/pages/portfolio";
 import Analytics from "@/pages/analytics";
 import Calculator from "@/pages/calculator";
+import Contracts from "@/pages/contracts";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -23,6 +24,7 @@ function Router() {
           <Route path="/portfolio" component={Portfolio} />
           <Route path="/analytics" component={Analytics} />
           <Route path="/calculator" component={Calculator} />
+          <Route path="/contracts" component={Contracts} />
           <Route component={NotFound} />
         </Switch>
       </main>

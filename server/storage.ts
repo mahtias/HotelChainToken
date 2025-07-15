@@ -121,6 +121,7 @@ export class MemStorage implements IStorage {
         ...hotel,
         id: this.currentHotelId++,
         createdAt: new Date(),
+        isActive: hotel.isActive ?? true,
       };
       this.hotels.set(newHotel.id, newHotel);
     });
@@ -165,6 +166,7 @@ export class MemStorage implements IStorage {
         ...investment,
         id: this.currentInvestmentId++,
         purchaseDate: new Date(),
+        status: investment.status ?? "active",
       };
       this.investments.set(newInvestment.id, newInvestment);
     });
@@ -199,6 +201,7 @@ export class MemStorage implements IStorage {
       ...hotel,
       id: this.currentHotelId++,
       createdAt: new Date(),
+      isActive: hotel.isActive ?? true,
     };
     this.hotels.set(newHotel.id, newHotel);
     return newHotel;
@@ -242,6 +245,7 @@ export class MemStorage implements IStorage {
       ...investment,
       id: this.currentInvestmentId++,
       purchaseDate: new Date(),
+      status: investment.status ?? "active",
     };
     this.investments.set(newInvestment.id, newInvestment);
     return newInvestment;
@@ -294,6 +298,7 @@ export class MemStorage implements IStorage {
       ...user,
       id: this.currentUserId++,
       createdAt: new Date(),
+      walletAddress: user.walletAddress ?? null,
     };
     this.users.set(newUser.id, newUser);
     return newUser;

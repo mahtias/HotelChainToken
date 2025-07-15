@@ -1,0 +1,35 @@
+{
+  "name": "hotelvest-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for HotelVest - Hotel Asset Tokenization Platform",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run deployment/deploy.js --network localhost",
+    "deploy:testnet": "hardhat run deployment/deploy.js --network goerli",
+    "deploy:mainnet": "hardhat run deployment/deploy.js --network mainnet",
+    "verify": "hardhat verify --network",
+    "node": "hardhat node",
+    "console": "hardhat console"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "smart-contracts",
+    "real-estate",
+    "tokenization",
+    "hotel",
+    "investment",
+    "defi"
+  ],
+  "author": "HotelVest Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.0"
+  }
+}

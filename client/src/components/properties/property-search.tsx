@@ -41,7 +41,7 @@ export default function PropertySearch({ onSearch }: PropertySearchProps) {
                 <SelectValue placeholder="All Locations" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Locations</SelectItem>
+                <SelectItem value="all">All Locations</SelectItem>
                 <SelectItem value="New York, NY">New York</SelectItem>
                 <SelectItem value="London, UK">London</SelectItem>
                 <SelectItem value="Tokyo, Japan">Tokyo</SelectItem>
@@ -56,7 +56,7 @@ export default function PropertySearch({ onSearch }: PropertySearchProps) {
                 <SelectValue placeholder="All Types" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Types</SelectItem>
+                <SelectItem value="all">All Types</SelectItem>
                 <SelectItem value="luxury">Luxury Resort</SelectItem>
                 <SelectItem value="business">Business Hotel</SelectItem>
                 <SelectItem value="boutique">Boutique Hotel</SelectItem>
@@ -69,7 +69,7 @@ export default function PropertySearch({ onSearch }: PropertySearchProps) {
                 <SelectValue placeholder="Min Investment" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any Amount</SelectItem>
+                <SelectItem value="all">Any Amount</SelectItem>
                 <SelectItem value="100000">$1,000</SelectItem>
                 <SelectItem value="500000">$5,000</SelectItem>
                 <SelectItem value="1000000">$10,000</SelectItem>

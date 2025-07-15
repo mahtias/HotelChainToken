@@ -28,6 +28,13 @@ Preferred communication style: Simple, everyday language.
 - **Session Management**: PostgreSQL session store with connect-pg-simple
 - **Development**: TSX for TypeScript execution in development
 
+### Smart Contract Architecture
+- **Platform**: Ethereum blockchain using Solidity ^0.8.19
+- **Development Framework**: Hardhat for contract development and testing
+- **Security**: OpenZeppelin contracts for security patterns
+- **Token Standards**: ERC-721 for hotel assets, ERC-20 for investment tokens
+- **Deployment**: Local, testnet, and mainnet deployment scripts
+
 ### Database Schema
 The system uses four main entities:
 - **Hotels**: Core investment properties with metadata, pricing, and performance data
@@ -54,7 +61,14 @@ The system uses four main entities:
 - **Portfolio Management**: Track investment performance and returns
 - **Investment Calculator**: Calculate potential returns on investments
 - **Analytics Dashboard**: Visualize investment performance and market data
+- **Smart Contract Interface**: View and interact with blockchain components
 - **Responsive Design**: Mobile-first approach with responsive layouts
+
+### Smart Contract System
+- **HotelAssetToken (ERC-721)**: NFT representing unique hotel property ownership
+- **HotelInvestmentToken (ERC-20)**: Fractional ownership tokens for hotel investments
+- **HotelInvestmentManager**: Main contract coordinating asset tokenization and investments
+- **HotelRoyaltyManager**: Revenue distribution and royalty payment management
 
 ## Data Flow
 
