@@ -1,4 +1,6 @@
 import { hotels, investments, portfolios, users, type Hotel, type Investment, type Portfolio, type User, type InsertHotel, type InsertInvestment, type InsertPortfolio, type InsertUser } from "@shared/schema";
+import { db } from "./db";
+import { eq, or, ilike, gte } from "drizzle-orm";
 
 export interface IStorage {
   // Hotel methods
@@ -24,6 +26,135 @@ export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   getUserByEmail(email: string): Promise<User | undefined>;
+}
+
+export class DatabaseStorage implements IStorage {
+  // Hotel methods
+  async getHotels(): Promise<Hotel[]> {
+    return await db.select().from(hotels);
+  }
+
+  async getHotel(id: number): Promise<Hotel | undefined> {
+    const [hotel] = await db.select().from(hotels).where(eq(hotels.id, id));
+    return hotel || undefined;
+  }
+
+  async createHotel(hotel: InsertHotel): Promise<Hotel> {
+    const [newHotel] = await db
+      .insert(hotels)
+      .values(hotel)
+      .returning();
+    return newHotel;
+  }
+
+  async searchHotels(query: string, location?: string, type?: string, minInvestment?: number): Promise<Hotel[]> {
+    let conditions = [];
+    
+    if (query) {
+      conditions.push(
+        or(
+          ilike(hotels.name, `%${query}%`),
+          ilike(hotels.location, `%${query}%`),
+          ilike(hotels.description, `%${query}%`)
+        )
+      );
+    }
+    
+    if (location) {
+      conditions.push(ilike(hotels.location, `%${location}%`));
+    }
+    
+    if (type) {
+      conditions.push(eq(hotels.type, type));
+    }
+    
+    if (minInvestment) {
+      conditions.push(gte(hotels.minInvestment, minInvestment));
+    }
+    
+    if (conditions.length > 0) {
+      return await db.select().from(hotels).where(conditions.length === 1 ? conditions[0] : or(...conditions));
+    }
+    
+    return await db.select().from(hotels);
+  }
+
+  // Investment methods
+  async getInvestments(): Promise<Investment[]> {
+    return await db.select().from(investments);
+  }
+
+  async getInvestment(id: number): Promise<Investment | undefined> {
+    const [investment] = await db.select().from(investments).where(eq(investments.id, id));
+    return investment || undefined;
+  }
+
+  async getInvestmentsByUserId(userId: number): Promise<Investment[]> {
+    return await db.select().from(investments).where(eq(investments.userId, userId));
+  }
+
+  async getInvestmentsByHotelId(hotelId: number): Promise<Investment[]> {
+    return await db.select().from(investments).where(eq(investments.hotelId, hotelId));
+  }
+
+  async createInvestment(investment: InsertInvestment): Promise<Investment> {
+    const [newInvestment] = await db
+      .insert(investments)
+      .values(investment)
+      .returning();
+    return newInvestment;
+  }
+
+  async updateInvestment(id: number, investment: Partial<Investment>): Promise<Investment> {
+    const [updatedInvestment] = await db
+      .update(investments)
+      .set(investment)
+      .where(eq(investments.id, id))
+      .returning();
+    return updatedInvestment;
+  }
+
+  // Portfolio methods
+  async getPortfolio(userId: number): Promise<Portfolio | undefined> {
+    const [portfolio] = await db.select().from(portfolios).where(eq(portfolios.userId, userId));
+    return portfolio || undefined;
+  }
+
+  async createPortfolio(portfolio: InsertPortfolio): Promise<Portfolio> {
+    const [newPortfolio] = await db
+      .insert(portfolios)
+      .values(portfolio)
+      .returning();
+    return newPortfolio;
+  }
+
+  async updatePortfolio(userId: number, portfolio: Partial<Portfolio>): Promise<Portfolio> {
+    const [updatedPortfolio] = await db
+      .update(portfolios)
+      .set(portfolio)
+      .where(eq(portfolios.userId, userId))
+      .returning();
+    return updatedPortfolio;
+  }
+
+  // User methods
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user || undefined;
+  }
+
+  async createUser(user: InsertUser): Promise<User> {
+    const [newUser] = await db
+      .insert(users)
+      .values(user)
+      .returning();
+    return newUser;
+  }
 }
 
 export class MemStorage implements IStorage {
@@ -305,4 +436,4 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

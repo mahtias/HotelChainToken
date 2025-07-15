@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "./HotelAssetToken.sol";
 import "./HotelInvestmentToken.sol";
+import "./ChainlinkPriceOracle.sol";
 
 /**
  * @title HotelInvestmentManager
@@ -16,6 +17,7 @@ contract HotelInvestmentManager is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
     
     HotelAssetToken public hotelAssetToken;
+    ChainlinkPriceOracle public priceOracle;
     
     struct InvestmentPool {
         uint256 hotelAssetId;
@@ -69,8 +71,9 @@ contract HotelInvestmentManager is Ownable, ReentrancyGuard {
         uint256 timestamp
     );
     
-    constructor(address _hotelAssetToken) {
+    constructor(address _hotelAssetToken, address _priceOracleAddress) {
         hotelAssetToken = HotelAssetToken(_hotelAssetToken);
+        priceOracle = ChainlinkPriceOracle(_priceOracleAddress);
     }
     
     /**
@@ -347,5 +350,64 @@ contract HotelInvestmentManager is Ownable, ReentrancyGuard {
         for (uint256 i = 0; i < poolCounter; i++) {
             investmentPools[i].isActive = true;
         }
+    }
+    
+    /**
+     * @dev Get hotel value in USD using Chainlink price feed
+     */
+    function getHotelValueInUSD(uint256 _poolId) public view returns (uint256) {
+        InvestmentPool memory pool = investmentPools[_poolId];
+        require(pool.isActive, "Investment pool not active");
+        
+        // Get ETH price in USD
+        uint256 ethPriceInUSD = priceOracle.getPriceInUSD("ETH");
+        
+        // Convert hotel value from ETH to USD
+        return pool.totalValue.mul(ethPriceInUSD).div(1e18);
+    }
+
+    /**
+     * @dev Get investment value in USD
+     */
+    function getInvestmentValueInUSD(uint256 _poolId, uint256 _ethAmount) public view returns (uint256) {
+        // Get ETH price in USD
+        uint256 ethPriceInUSD = priceOracle.getPriceInUSD("ETH");
+        
+        // Convert ETH amount to USD
+        return _ethAmount.mul(ethPriceInUSD).div(1e18);
+    }
+
+    /**
+     * @dev Calculate required ETH for USD investment amount
+     */
+    function calculateETHForUSDInvestment(uint256 _usdAmount) public view returns (uint256) {
+        // Get ETH price in USD
+        uint256 ethPriceInUSD = priceOracle.getPriceInUSD("ETH");
+        
+        // Convert USD to ETH
+        return _usdAmount.mul(1e18).div(ethPriceInUSD);
+    }
+
+    /**
+     * @dev Get multiple asset prices for portfolio valuation
+     */
+    function getMultipleAssetPrices() public view returns (
+        uint256 ethPrice,
+        uint256 btcPrice,
+        uint256 linkPrice,
+        uint256 usdcPrice
+    ) {
+        ethPrice = priceOracle.getPriceInUSD("ETH");
+        btcPrice = priceOracle.getPriceInUSD("BTC");
+        linkPrice = priceOracle.getPriceInUSD("LINK");
+        usdcPrice = priceOracle.getPriceInUSD("USDC");
+    }
+
+    /**
+     * @dev Update price oracle address (only owner)
+     */
+    function updatePriceOracle(address _newPriceOracle) public onlyOwner {
+        require(_newPriceOracle != address(0), "Invalid price oracle address");
+        priceOracle = ChainlinkPriceOracle(_newPriceOracle);
     }
 }

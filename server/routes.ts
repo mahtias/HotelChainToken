@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertInvestmentSchema, insertHotelSchema } from "@shared/schema";
 import { z } from "zod";
+import { chainlinkService } from "./chainlinkService";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Hotel routes
@@ -174,6 +175,78 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(user);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
+
+  // Chainlink price routes
+  app.get("/api/prices/:symbol", async (req, res) => {
+    try {
+      const symbol = req.params.symbol.toUpperCase();
+      const priceData = await chainlinkService.getPrice(symbol);
+      res.json(priceData);
+    } catch (error) {
+      res.status(500).json({ message: `Failed to fetch price for ${req.params.symbol}` });
+    }
+  });
+
+  app.get("/api/prices", async (req, res) => {
+    try {
+      const symbols = req.query.symbols ? (req.query.symbols as string).split(',') : ['ETH', 'BTC', 'LINK', 'USDC'];
+      const prices = await chainlinkService.getMultiplePrices(symbols);
+      res.json(prices);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch multiple prices" });
+    }
+  });
+
+  app.get("/api/market/data", async (req, res) => {
+    try {
+      const marketData = await chainlinkService.getMarketData();
+      res.json(marketData);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch market data" });
+    }
+  });
+
+  app.post("/api/convert/usd-to-eth", async (req, res) => {
+    try {
+      const { amount } = req.body;
+      if (!amount || typeof amount !== 'number') {
+        return res.status(400).json({ message: "Invalid amount provided" });
+      }
+      
+      const ethAmount = await chainlinkService.convertUSDToETH(amount);
+      res.json({ usdAmount: amount, ethAmount });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to convert USD to ETH" });
+    }
+  });
+
+  app.post("/api/convert/eth-to-usd", async (req, res) => {
+    try {
+      const { amount } = req.body;
+      if (!amount || typeof amount !== 'number') {
+        return res.status(400).json({ message: "Invalid amount provided" });
+      }
+      
+      const usdAmount = await chainlinkService.convertETHToUSD(amount);
+      res.json({ ethAmount: amount, usdAmount });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to convert ETH to USD" });
+    }
+  });
+
+  app.post("/api/portfolio/value", async (req, res) => {
+    try {
+      const { holdings } = req.body;
+      if (!holdings || !Array.isArray(holdings)) {
+        return res.status(400).json({ message: "Invalid holdings data" });
+      }
+      
+      const portfolioValue = await chainlinkService.calculatePortfolioValue(holdings);
+      res.json(portfolioValue);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to calculate portfolio value" });
     }
   });
 

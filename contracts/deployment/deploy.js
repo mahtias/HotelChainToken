@@ -15,22 +15,29 @@ async function main() {
   await hotelAssetToken.deployed();
   console.log("HotelAssetToken deployed to:", hotelAssetToken.address);
 
+  // Deploy ChainlinkPriceOracle
+  console.log("\n2. Deploying ChainlinkPriceOracle...");
+  const ChainlinkPriceOracle = await ethers.getContractFactory("ChainlinkPriceOracle");
+  const chainlinkPriceOracle = await ChainlinkPriceOracle.deploy();
+  await chainlinkPriceOracle.deployed();
+  console.log("ChainlinkPriceOracle deployed to:", chainlinkPriceOracle.address);
+
   // Deploy HotelInvestmentManager
-  console.log("\n2. Deploying HotelInvestmentManager...");
+  console.log("\n3. Deploying HotelInvestmentManager...");
   const HotelInvestmentManager = await ethers.getContractFactory("HotelInvestmentManager");
-  const hotelInvestmentManager = await HotelInvestmentManager.deploy(hotelAssetToken.address);
+  const hotelInvestmentManager = await HotelInvestmentManager.deploy(hotelAssetToken.address, chainlinkPriceOracle.address);
   await hotelInvestmentManager.deployed();
   console.log("HotelInvestmentManager deployed to:", hotelInvestmentManager.address);
 
   // Deploy HotelRoyaltyManager
-  console.log("\n3. Deploying HotelRoyaltyManager...");
+  console.log("\n4. Deploying HotelRoyaltyManager...");
   const HotelRoyaltyManager = await ethers.getContractFactory("HotelRoyaltyManager");
   const hotelRoyaltyManager = await HotelRoyaltyManager.deploy(hotelInvestmentManager.address);
   await hotelRoyaltyManager.deployed();
   console.log("HotelRoyaltyManager deployed to:", hotelRoyaltyManager.address);
 
   // Mint sample hotel assets
-  console.log("\n4. Minting sample hotel assets...");
+  console.log("\n5. Minting sample hotel assets...");
   
   const sampleHotels = [
     {
@@ -82,7 +89,7 @@ async function main() {
   }
 
   // Create investment pools
-  console.log("\n5. Creating investment pools...");
+  console.log("\n6. Creating investment pools...");
   
   const investmentPools = [
     {
@@ -138,7 +145,7 @@ async function main() {
   }
 
   // Create revenue streams
-  console.log("\n6. Creating revenue streams...");
+  console.log("\n7. Creating revenue streams...");
   
   for (let i = 0; i < poolIds.length; i++) {
     const distributionFrequency = 30 * 24 * 60 * 60; // 30 days
@@ -157,6 +164,7 @@ async function main() {
   console.log("DEPLOYMENT SUMMARY");
   console.log("=".repeat(60));
   console.log("HotelAssetToken:", hotelAssetToken.address);
+  console.log("ChainlinkPriceOracle:", chainlinkPriceOracle.address);
   console.log("HotelInvestmentManager:", hotelInvestmentManager.address);
   console.log("HotelRoyaltyManager:", hotelRoyaltyManager.address);
   console.log("\nHotel Asset Token IDs:", hotelAssetIds);
@@ -168,6 +176,7 @@ async function main() {
     network: "localhost", // or process.env.HARDHAT_NETWORK
     contracts: {
       HotelAssetToken: hotelAssetToken.address,
+      ChainlinkPriceOracle: chainlinkPriceOracle.address,
       HotelInvestmentManager: hotelInvestmentManager.address,
       HotelRoyaltyManager: hotelRoyaltyManager.address
     },
