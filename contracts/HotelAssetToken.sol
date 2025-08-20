@@ -48,17 +48,7 @@ contract HotelAssetToken is ERC721, ERC721URIStorage, Ownable, ReentrancyGuard {
     
     constructor() ERC721("HotelVest Asset Token", "HVAT") {}
     
-    /**
-     * @dev Mint a new hotel asset NFT
-     * @param to Address to receive the NFT
-     * @param name Hotel name
-     * @param location Hotel location
-     * @param hotelType Type of hotel (luxury, business, boutique, etc.)
-     * @param totalValue Total value of the hotel in wei
-     * @param rooms Number of rooms
-     * @param rating Hotel rating (out of 500)
-     * @param tokenURI Metadata URI for the NFT
-     */
+   
     function mintHotelAsset(
         address to,
         string memory name,
@@ -67,13 +57,13 @@ contract HotelAssetToken is ERC721, ERC721URIStorage, Ownable, ReentrancyGuard {
         uint256 totalValue,
         uint256 rooms,
         uint256 rating,
-        string memory tokenURI
+        string memory tokenURI_
     ) public onlyOwner returns (uint256) {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, tokenURI);
+        _setTokenURI(tokenId, tokenURI_);
         
         hotelAssets[tokenId] = HotelAsset({
             name: name,
@@ -101,7 +91,7 @@ contract HotelAssetToken is ERC721, ERC721URIStorage, Ownable, ReentrancyGuard {
         address from,
         address to,
         uint256 tokenId
-    ) public override {
+    ) public  override(ERC721,IERC721)  {
         super.transferFrom(from, to, tokenId);
         
         // Update hotel asset owner
@@ -122,7 +112,7 @@ contract HotelAssetToken is ERC721, ERC721URIStorage, Ownable, ReentrancyGuard {
         address to,
         uint256 tokenId,
         bytes memory data
-    ) public override {
+    ) public  override(ERC721, IERC721) {
         super.safeTransferFrom(from, to, tokenId, data);
         
         // Update hotel asset owner
@@ -139,7 +129,7 @@ contract HotelAssetToken is ERC721, ERC721URIStorage, Ownable, ReentrancyGuard {
      * @dev Get hotel asset details
      */
     function getHotelAsset(uint256 tokenId) public view returns (HotelAsset memory) {
-        require(_exists(tokenId), "HotelAssetToken: Token does not exist");
+        require(ownerOf(tokenId) != address(0), "HotelAssetToken: Token does not exist");
         return hotelAssets[tokenId];
     }
     
@@ -154,7 +144,7 @@ contract HotelAssetToken is ERC721, ERC721URIStorage, Ownable, ReentrancyGuard {
      * @dev Update hotel asset value (only owner)
      */
     function updateHotelValue(uint256 tokenId, uint256 newValue) public onlyOwner {
-        require(_exists(tokenId), "HotelAssetToken: Token does not exist");
+        require(ownerOf(tokenId) != address(0), "HotelAssetToken: Token does not exist");
         hotelAssets[tokenId].totalValue = newValue;
     }
     
@@ -162,7 +152,7 @@ contract HotelAssetToken is ERC721, ERC721URIStorage, Ownable, ReentrancyGuard {
      * @dev Toggle hotel asset active status
      */
     function toggleHotelActive(uint256 tokenId) public onlyOwner {
-        require(_exists(tokenId), "HotelAssetToken: Token does not exist");
+        require(ownerOf(tokenId) != address(0), "HotelAssetToken: Token does not exist");
         hotelAssets[tokenId].isActive = !hotelAssets[tokenId].isActive;
     }
     
