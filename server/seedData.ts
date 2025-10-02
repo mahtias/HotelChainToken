@@ -8,7 +8,7 @@ export async function seedDatabase() {
     // Create default user
     const [defaultUser] = await db.insert(users).values({
       email: "demo@hotelvest.com",
-      name: "Demo User",
+      username: "Demo User",
       walletAddress: "0x742d35Cc6634C0532925a3b8D0E0af4dc53eb8b0"
     }).returning();
 
@@ -34,6 +34,7 @@ export async function seedDatabase() {
         revenue: 12500000,
         expenses: 8750000,
         netIncome: 3750000,
+         fundingProgress: 0,
         isActive: true
       },
       {
@@ -56,6 +57,7 @@ export async function seedDatabase() {
         revenue: 28750000,
         expenses: 20125000,
         netIncome: 8625000,
+         fundingProgress: 0,
         isActive: true
       },
       {
@@ -78,6 +80,7 @@ export async function seedDatabase() {
         revenue: 8940000,
         expenses: 6258000,
         netIncome: 2682000,
+         fundingProgress: 0,
         isActive: true
       },
       {
@@ -100,6 +103,7 @@ export async function seedDatabase() {
         revenue: 15625000,
         expenses: 10937500,
         netIncome: 4687500,
+         fundingProgress: 0,
         isActive: true
       },
       {
@@ -122,6 +126,7 @@ export async function seedDatabase() {
         revenue: 19580000,
         expenses: 13706000,
         netIncome: 5874000,
+         fundingProgress: 0,
         isActive: true
       },
       {
@@ -144,6 +149,7 @@ export async function seedDatabase() {
         revenue: 6670000,
         expenses: 4669000,
         netIncome: 2001000,
+         fundingProgress: 0,
         isActive: true
       }
     ];
@@ -194,7 +200,7 @@ export async function seedDatabase() {
       totalInvestment: 1800000,
       currentValue: 1889800,
       totalReturn: 89800,
-      returnPercentage: 4.99,
+      returnRate: 4.99,
       dividendsReceived: 45700,
       numberOfInvestments: 3,
       riskScore: 6.5,
