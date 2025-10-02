@@ -1,7 +1,7 @@
 // SPDX-License-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract HotelCompliance is Ownable {
     mapping(address => bool) public isKycApproved;

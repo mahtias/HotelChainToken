@@ -1,12 +1,12 @@
 // SPDX-License-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import { HotelAssetToken } from "./HotelAssetToken.sol";
-import { HotelInvestmentToken } from "./HotelInvestmentToken.sol";
-import { ChainlinkPriceOracle } from "./ChainlinkPriceOracle.sol";
-import { HotelCompliance } from "./HotelCompliance.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {HotelAssetToken} from "./HotelAssetToken.sol";
+import {HotelInvestmentToken} from "./HotelInvestmentToken.sol";
+import {ChainlinkPriceOracle} from "./ChainlinkPriceOracle.sol";
+import {HotelCompliance} from "./HotelCompliance.sol";
 
 contract HotelInvestmentManager is Ownable, ReentrancyGuard {
     ChainlinkPriceOracle public priceOracle;
@@ -65,7 +65,8 @@ contract HotelInvestmentManager is Ownable, ReentrancyGuard {
     function getUserTotalInvestment(address user) public view returns (uint256) {
         return userInvestments[user];
     }
-     function distributeDividends(uint256 _poolId) public payable {
+
+    function distributeDividends(uint256 _poolId) public payable {
         require(investmentPools[_poolId].isActive, "Pool not active");
         // Placeholder: Implement dividend distribution logic
         // For now, just emit an event to confirm function call

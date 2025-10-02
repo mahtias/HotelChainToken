@@ -25,13 +25,18 @@ contract HotelRoyaltyManager is Ownable, ReentrancyGuard {
     mapping(uint256 => uint256) public totalHotelRevenue;
     uint256 public totalPlatformFees;
 
-    event RevenueDistributed(uint256 indexed poolId, uint256 totalAmount, uint256 platformFee, uint256 investorAmount, uint256 timestamp);
+    event RevenueDistributed(
+        uint256 indexed poolId, uint256 totalAmount, uint256 platformFee, uint256 investorAmount, uint256 timestamp
+    );
 
     constructor(address _investmentManager) {
         investmentManager = HotelInvestmentManager(_investmentManager);
     }
 
-    function createRevenueStream(uint256 _poolId, uint256 _distributionFrequency, uint256 _platformFee) public onlyOwner {
+    function createRevenueStream(uint256 _poolId, uint256 _distributionFrequency, uint256 _platformFee)
+        public
+        onlyOwner
+    {
         require(_platformFee <= 2000, "Max 20%");
         revenueStreams[_poolId] = RevenueStream({
             poolId: _poolId,
