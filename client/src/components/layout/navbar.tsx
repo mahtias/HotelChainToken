@@ -3,10 +3,15 @@ import { Building, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ethers } from "ethers";
+import Web3Modal from "web3modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 
 export default function Navbar() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [account, setAccount] = useState<string | null>(null);
 
   const navItems = [
     { label: "Properties", href: "/properties" },
@@ -21,16 +26,55 @@ export default function Navbar() {
     return location === href;
   };
 
+  const connectWallet = async () => {
+    try {
+      const web3Modal = new Web3Modal({
+        cacheProvider: false,
+        providerOptions: {
+          injected: { package: null }, // MetaMask
+          walletconnect: {
+            package: WalletConnectProvider,
+            options: {
+              // infuraId: "YOUR_INFURA_ID", // optional
+            },
+          },
+          coinbasewallet: {
+            package: CoinbaseWalletSDK,
+            options: {
+              appName: "HotelVest",
+              // infuraId: "YOUR_INFURA_ID", // optional
+            },
+          },
+        },
+      });
+
+      // Open wallet popup
+      const instance = await web3Modal.connect();
+
+      // Create ethers provider
+      const provider = new ethers.providers.Web3Provider(instance);
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
+
+      setAccount(address); // update state to show connected account
+      console.log("Connected:", address);
+    } catch (error) {
+      console.error("Wallet connection failed:", error);
+    }
+  };
+
   return (
     <nav className="bg-white shadow-sm border-b border-neutral-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <Building className="text-primary text-2xl mr-3" />
               <span className="font-bold text-xl text-neutral-900">HotelVest</span>
             </Link>
-            
+
+            {/* Desktop Nav */}
             <div className="hidden md:block ml-10">
               <div className="flex items-baseline space-x-4">
                 {navItems.map((item) => (
@@ -49,27 +93,20 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-          
+
+          {/* Right side */}
           <div className="flex items-center space-x-4">
-            <div className="hidden md:block">
-              <div className="bg-neutral-100 px-3 py-2 rounded-lg">
-                <span className="text-sm text-neutral-600">Portfolio Value: </span>
-                <span className="font-semibold text-neutral-900">$127,450</span>
-              </div>
-            </div>
-            
-            <Button className="hidden md:flex bg-primary text-white hover:bg-blue-700">
-              Connect Wallet
+            {/* Connect Wallet Button */}
+            <Button
+              className="hidden md:flex bg-primary text-white hover:bg-blue-700"
+              onClick={connectWallet}
+            >
+              {account
+                ? `Connected: ${account.slice(0, 6)}...${account.slice(-4)}`
+                : "Connect Wallet"}
             </Button>
-            
-            <div className="hidden md:block">
-              <img 
-                className="h-8 w-8 rounded-full" 
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=32&h=32" 
-                alt="User avatar"
-              />
-            </div>
-            
+
+            {/* Mobile menu */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
@@ -88,12 +125,7 @@ export default function Navbar() {
                       <X className="h-6 w-6" />
                     </Button>
                   </div>
-                  
-                  <div className="bg-neutral-100 px-3 py-2 rounded-lg">
-                    <span className="text-sm text-neutral-600">Portfolio Value: </span>
-                    <span className="font-semibold text-neutral-900">$127,450</span>
-                  </div>
-                  
+
                   <div className="flex flex-col space-y-2">
                     {navItems.map((item) => (
                       <Link
@@ -110,9 +142,14 @@ export default function Navbar() {
                       </Link>
                     ))}
                   </div>
-                  
-                  <Button className="bg-primary text-white hover:bg-blue-700">
-                    Connect Wallet
+
+                  <Button
+                    className="bg-primary text-white hover:bg-blue-700"
+                    onClick={connectWallet}
+                  >
+                    {account
+                      ? `Connected: ${account.slice(0, 6)}...${account.slice(-4)}`
+                      : "Connect Wallet"}
                   </Button>
                 </div>
               </SheetContent>

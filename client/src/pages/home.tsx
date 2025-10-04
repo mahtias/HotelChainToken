@@ -19,7 +19,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-blue-600 text-white py-16">
+      <div className="bg-hero bg-cover bg-center bg-no-repeat min-h-screen">
+      <div className="flex flex-col items-center justify-center h-full text-white">
+       
+      <section className="bg-gradient-to-r from-primary to-blue-600 text-white py-20 ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -43,7 +46,7 @@ export default function Home() {
       </section>
 
       {/* Market Overview */}
-      <section className="py-12 bg-white">
+      {/* <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {marketLoading ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -85,19 +88,19 @@ export default function Home() {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* Featured Properties */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
+          {/* <div className="mb-8">
             <h2 className="text-3xl font-bold text-neutral-900 mb-4">
               Featured Investment Opportunities
             </h2>
             <p className="text-neutral-600">
               Carefully curated hotel properties with exceptional return potential
             </p>
-          </div>
+          </div> */}
 
           {hotelsLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -120,15 +123,17 @@ export default function Home() {
             </div>
           )}
 
-          <div className="text-center mt-8">
+          {/* <div className="text-center mt-8">
             <Link href="/properties">
               <Button size="lg" className="bg-primary text-white hover:bg-blue-700">
                 View All Properties
               </Button>
             </Link>
-          </div>
+          </div> */}
         </div>
       </section>
+      </div>
+      </div>
     </div>
   );
 }
