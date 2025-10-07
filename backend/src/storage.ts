@@ -1,4 +1,4 @@
-import { hotels, investments, portfolios, users, type Hotel, type Investment, type Portfolio, type User, type InsertHotel, type InsertInvestment, type InsertPortfolio, type InsertUser } from "@shared/schema";
+import { hotels, investments, portfolios, users, type Hotel, type Investment, type Portfolio, type User, type InsertHotel, type InsertInvestment, type InsertPortfolio, type InsertUser } from "../shared/schema";
 import { db } from "./db";
 import { eq, or, ilike, gte } from "drizzle-orm";
 

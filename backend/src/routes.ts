@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertInvestmentSchema, insertHotelSchema } from "@shared/schema";
+import { insertInvestmentSchema, insertHotelSchema } from "../shared/schema";
 import { z } from "zod";
 import { chainlinkService } from "./chainlinkService";
 

@@ -13,6 +13,10 @@ import Calculator from "@/pages/calculator";
 import Contracts from "@/pages/contracts";
 import NotFound from "@/pages/not-found";
 
+interface AppProps {
+  apiUrl: string;
+}
+
 function Router() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -33,13 +37,14 @@ function Router() {
   );
 }
 
-function App() {
+function App({ apiUrl }: AppProps) {
+  console.log("API URL inside App:", apiUrl); // Now you can access it
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Router />
-        
       </TooltipProvider>
     </QueryClientProvider>
   );

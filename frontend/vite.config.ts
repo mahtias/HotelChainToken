@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  root: path.resolve(__dirname, "client"),
+  root: path.resolve(__dirname),  // frontend folder itself
   plugins: [
     react(),
     nodePolyfills({
@@ -21,17 +21,17 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      process: "process/browser",   // important
+      process: "process/browser",
       util: "util",
       stream: "stream-browserify",
-      "@": path.resolve(__dirname, "client/src"),
-      "@shared": path.resolve(__dirname, "shared"),
+      "@": path.resolve(__dirname, "src"),
+      "@shared": path.resolve(__dirname, "../shared"),
     },
   },
   define: {
-  global: "globalThis",
-  "process.env": {},
-  "process.browser": true,
-  "process.version": '"v0.0.0"',
-},
+    global: "globalThis",
+    "process.env": {},
+    "process.browser": true,
+    "process.version": '"v0.0.0"',
+  },
 });
