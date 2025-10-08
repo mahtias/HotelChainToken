@@ -21,17 +21,19 @@ export default function Home() {
       {/* Hero Section */}
       <div className="bg-hero bg-cover bg-center bg-no-repeat min-h-screen">
       <div className="flex flex-col items-center justify-center h-full text-white">
+
+        
        
-      <section className="bg-gradient-to-r from-primary to-blue-600 text-white py-20 ">
+      {/* <section className="bg-gradient-to-r from-primary to-blue-600 text-white py-20 ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 ">
               Invest in Premium Hotel Assets
             </h1>
             <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
               Tokenized real-world hotel investments with transparent returns, professional management, and global diversification opportunities.
             </p>
-            {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/properties">
                 <Button size="lg" className="bg-white text-primary hover:bg-neutral-100">
                   Browse Properties
@@ -40,10 +42,10 @@ export default function Home() {
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
                 Learn More
               </Button>
-            </div> */}
+            </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Market Overview */}
       {/* <section className="py-12 bg-white">
