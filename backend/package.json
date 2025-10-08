@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "tsx src/index.ts",
     "dev:setup": "tsx src/devSetup.ts",
-    "build": "tsc && esbuild src/index.ts --platform=node --bundle --format=esm --outdir=dist",
-    "start": "NODE_ENV=production node dist/index.js",
+    "build": "tsc",
+    "start": "NODE_ENV=production node --import tsx src/index.ts",
     "check": "tsc --noEmit",
     "db:push": "drizzle-kit push"
   },
