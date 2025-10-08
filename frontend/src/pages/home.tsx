@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import PropertyCard from "@/components/properties/property-card";
-import type { Hotel } from "@shared/schema";
+import type { Hotel } from "../../../backend/shared/schema";
 
 export default function Home() {
   const { data: hotels = [], isLoading: hotelsLoading } = useQuery<Hotel[]>({
@@ -31,7 +31,7 @@ export default function Home() {
             <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
               Tokenized real-world hotel investments with transparent returns, professional management, and global diversification opportunities.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/properties">
                 <Button size="lg" className="bg-white text-primary hover:bg-neutral-100">
                   Browse Properties
@@ -40,7 +40,7 @@ export default function Home() {
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
                 Learn More
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
