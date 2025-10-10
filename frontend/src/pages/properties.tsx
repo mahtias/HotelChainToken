@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+//import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import PropertyCard from "@/components/properties/property-card";
+//import PropertyCard from "@/components/properties/property-card";
 import PropertySearch from "@/components/properties/property-search";
-import type { Hotel } from "../../../backend/shared/schema";
+//import type { Hotel } from "../../../backend/shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Properties() {
@@ -11,21 +11,21 @@ export default function Properties() {
   const [selectedType, setSelectedType] = useState("");
   const [selectedMinInvestment, setSelectedMinInvestment] = useState("");
 
-  const { data: hotels = [], isLoading } = useQuery<Hotel[]>({
-    queryKey: ["/api/hotels/search", searchQuery, selectedLocation, selectedType, selectedMinInvestment],
-    queryFn: async () => {
-      const params = new URLSearchParams({
-        query: searchQuery,
-        ...(selectedLocation && { location: selectedLocation }),
-        ...(selectedType && { type: selectedType }),
-        ...(selectedMinInvestment && { minInvestment: selectedMinInvestment }),
-      });
+  // const { data: hotels = [], isLoading } = useQuery<Hotel[]>({
+  //   queryKey: ["/api/hotels/search", searchQuery, selectedLocation, selectedType, selectedMinInvestment],
+  //   queryFn: async () => {
+  //     const params = new URLSearchParams({
+  //       query: searchQuery,
+  //       ...(selectedLocation && { location: selectedLocation }),
+  //       ...(selectedType && { type: selectedType }),
+  //       ...(selectedMinInvestment && { minInvestment: selectedMinInvestment }),
+  //     });
       
-      const response = await fetch(`/api/hotels/search?${params}`);
-      if (!response.ok) throw new Error('Failed to fetch hotels');
-      return response.json();
-    },
-  });
+  //     const response = await fetch(`/api/hotels/search?${params}`);
+  //     if (!response.ok) throw new Error('Failed to fetch hotels');
+  //     return response.json();
+  //   },
+  // });
 
   const handleSearch = (query: string, location: string, type: string, minInvestment: string) => {
     setSearchQuery(query);
@@ -50,12 +50,12 @@ export default function Properties() {
 
         <div className="mt-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-neutral-900">
+            {/* <h2 className="text-xl font-semibold text-neutral-900">
               {isLoading ? "Loading..." : `${hotels.length} Properties Available`}
-            </h2>
+            </h2> */}
           </div>
-
-          {isLoading ? (
+         
+         
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(6)].map((_, i) => (
                 <Card key={i} className="animate-pulse">
@@ -68,7 +68,7 @@ export default function Properties() {
                 </Card>
               ))}
             </div>
-          ) : hotels.length === 0 ? (
+            {/* {!isLoading && hotels.length === 0 && */}
             <div className="text-center py-12">
               <div className="text-neutral-500 text-lg">
                 No properties found matching your criteria
@@ -77,13 +77,7 @@ export default function Properties() {
                 Try adjusting your search filters or browse all properties
               </p>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {hotels.map((hotel) => (
-                <PropertyCard key={hotel.id} hotel={hotel} />
-              ))}
-            </div>
-          )}
+        
         </div>
       </div>
     </div>

@@ -1,20 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
+//import { useQuery } from "@tanstack/react-query";
 //import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+//import { Card, CardContent } from "@/components/ui/card";
 //import { Link } from "wouter";
-import PropertyCard from "@/components/properties/property-card";
-import type { Hotel } from "../../../backend/shared/schema";
+//import PropertyCard from "@/components/properties/property-card";
+//import type { Hotel } from "../../../backend/shared/schema";
 
 export default function Home() {
-  const { data: hotels = [], isLoading: hotelsLoading } = useQuery<Hotel[]>({
-    queryKey: ["/api/hotels"],
-  });
+  // const { data: hotels = [], isLoading: hotelsLoading } = useQuery<Hotel[]>({
+  //   queryKey: ["/api/hotels"],
+  // });
 
   // const { data: marketData, isLoading: marketLoading } = useQuery({
   //   queryKey: ["/api/market/overview"],
   // });
 
-  const featuredHotels = hotels.slice(0, 3);
+  //const featuredHotels = hotels.slice(0, 3);
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -113,7 +113,7 @@ export default function Home() {
             </p>
             </span>
 
-          {hotelsLoading ? (
+          {/* {hotelsLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(3)].map((_, i) => (
                 <Card key={i} className="animate-pulse">
@@ -132,7 +132,7 @@ export default function Home() {
                 <PropertyCard key={hotel.id} hotel={hotel} />
               ))}
             </div>
-          )}
+          )} */}
        
           {/* <div className="text-center mt-8">
             <Link href="/properties">

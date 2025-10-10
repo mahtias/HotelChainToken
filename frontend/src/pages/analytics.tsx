@@ -1,16 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+//import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, DollarSign, BarChart3, PieChart } from "lucide-react";
 
 export default function Analytics() {
-  const { data: marketData, isLoading: marketLoading } = useQuery({
-    queryKey: ["/api/market/overview"],
-  });
+  // const { data: marketData, isLoading: marketLoading } = useQuery({
+  //   queryKey: ["/api/market/overview"],
+  // });
 
-  const { data: portfolioData, isLoading: portfolioLoading } = useQuery({
-    queryKey: ["/api/portfolio/1/details"],
-  });
-
+  // const { data: portfolioData, isLoading: portfolioLoading } = useQuery({
+  //   queryKey: ["/api/portfolio/1/details"],
+  // });
+ const marketLoading = false;
+ const portfolioLoading = false;
+  //const portfolioData = null;
+  
   if (marketLoading || portfolioLoading) {
     return (
       <div className="min-h-screen bg-neutral-50">
@@ -34,7 +37,7 @@ export default function Analytics() {
     );
   }
 
-  const {portfolio } = portfolioData || {};
+  //const {portfolio } = portfolioData || {};
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -55,14 +58,14 @@ export default function Analytics() {
               <CardTitle className="text-sm font-medium">Portfolio Value</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
+            {/* <CardContent>
               <div className="text-2xl font-bold">
                 ${portfolio ? (portfolio.currentValue / 100).toLocaleString() : '0'}
               </div>
               <p className="text-xs text-muted-foreground">
                 {portfolio && portfolio.returnRate >= 0 ? '+' : ''}{portfolio?.returnRate?.toFixed(2) || 0}% from last month
               </p>
-            </CardContent>
+            </CardContent> */}
           </Card>
 
           <Card>
@@ -70,14 +73,14 @@ export default function Analytics() {
               <CardTitle className="text-sm font-medium">Total Return</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
+            {/* <CardContent>
               <div className="text-2xl font-bold text-secondary">
                 ${portfolio ? (portfolio.totalReturn / 100).toLocaleString() : '0'}
               </div>
               <p className="text-xs text-muted-foreground">
                 {portfolio?.returnRate?.toFixed(2) || 0}% return rate
               </p>
-            </CardContent>
+            </CardContent> */}
           </Card>
 
           <Card>
@@ -121,27 +124,27 @@ export default function Analytics() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Current Portfolio Value</span>
-                  <span className="text-sm font-bold">
+                  {/* <span className="text-sm font-bold">
                     ${portfolio ? (portfolio.currentValue / 100).toLocaleString() : '0'}
-                  </span>
+                  </span> */}
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Total Investment</span>
-                  <span className="text-sm">
+                  {/* <span className="text-sm">
                     ${portfolio ? (portfolio.totalInvestment / 100).toLocaleString() : '0'}
-                  </span>
+                  </span> */}
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Unrealized Gains</span>
-                  <span className="text-sm text-secondary">
+                  {/* <span className="text-sm text-secondary">
                     ${portfolio ? (portfolio.totalReturn / 100).toLocaleString() : '0'}
-                  </span>
+                  </span> */}
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Return Rate</span>
-                  <span className="text-sm text-secondary">
+                  {/* <span className="text-sm text-secondary">
                     {portfolio?.returnRate?.toFixed(2) || 0}%
-                  </span>
+                  </span> */}
                 </div>
               </div>
             </CardContent>

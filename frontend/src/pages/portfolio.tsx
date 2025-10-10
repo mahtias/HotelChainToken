@@ -1,14 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import PortfolioSummary from "@/components/portfolio/portfolio-summary";
-import PortfolioTable from "@/components/portfolio/portfolio-table";
+//import { useQuery } from "@tanstack/react-query";
+//import PortfolioSummary from "@/components/portfolio/portfolio-summary";
+//import PortfolioTable from "@/components/portfolio/portfolio-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, TrendingUp, DollarSign } from "lucide-react";
 
 export default function Portfolio() {
-  const { data: portfolioData, isLoading } = useQuery({
-    queryKey: ["/api/portfolio/1/details"],
-  });
-
+  // const { data: portfolioData, isLoading } = useQuery({
+  //   queryKey: ["/api/portfolio/1/details"],
+  // });
+ const isLoading = false;
   if (isLoading) {
     return (
       <div className="min-h-screen bg-neutral-50">
@@ -36,7 +36,7 @@ export default function Portfolio() {
     );
   }
 
-  const { portfolio, investments = [] } = portfolioData || {};
+  //const { portfolio, investments = [] } = portfolioData || {};
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -51,7 +51,7 @@ export default function Portfolio() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          <PortfolioSummary portfolio={portfolio} />
+          {/* <PortfolioSummary portfolio={portfolio} /> */}
           
           {/* Asset Allocation */}
           <Card>
@@ -133,7 +133,7 @@ export default function Portfolio() {
           </Card>
         </div>
 
-        <PortfolioTable investments={investments} />
+        {/* <PortfolioTable investments={investments} /> */}
       </div>
     </div>
   );
