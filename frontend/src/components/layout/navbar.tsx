@@ -6,10 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
+import EthereumProvider from "@walletconnect/ethereum-provider";
+import  createCoinbaseWalletSDK  from "@coinbase/wallet-sdk";
+//import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
+import HotelInvestmentManagerABI from "@/abis/HotelInvestmentManager.json";
 
 export default function Navbar() {
+
+
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [account, setAccount] = useState<string | null>(null);
@@ -27,42 +31,57 @@ export default function Navbar() {
     return location === href;
   };
 
-  const connectWallet = async () => {
-    try {
-      const web3Modal = new Web3Modal({
-        cacheProvider: false,
-        providerOptions: {
-          injected: { package: null }, // MetaMask
-          walletconnect: {
-            package: WalletConnectProvider,
-            options: {
-              // infuraId: "YOUR_INFURA_ID", // optional
-            },
-          },
-          coinbasewallet: {
-            package: CoinbaseWalletSDK,
-            options: {
-              appName: "HotelVest",
-              // infuraId: "YOUR_INFURA_ID", // optional
-            },
-          },
-        },
-      });
+ const connectWallet = async () => {
+  try {
+    const web3Modal = new Web3Modal({
+  cacheProvider: false,
+  providerOptions: {
+    injected: { package: null },
+    walletconnect: {
+      package: EthereumProvider,
+      options: {
+        projectId: "YOUR_WALLETCONNECT_PROJECT_ID", // Required for v2
+        chains: [1], // mainnet
+        showQrModal: true,
+      },
+    },
+    coinbasewallet: {
+      package: createCoinbaseWalletSDK,
+      options: {
+        appName: "HotelVest",
+      },
+    },
+  },
+});
 
-      // Open wallet popup
-      const instance = await web3Modal.connect();
+    // 1️ Open wallet popup
+    const instance = await web3Modal.connect();
 
-      // Create ethers provider
-      const provider = new ethers.providers.Web3Provider(instance);
-      const signer = provider.getSigner();
-      const address = await signer.getAddress();
+    // 2️ Create ethers provider and signer
+    const provider = new ethers.providers.Web3Provider(instance);
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+    setAccount(address);
 
-      setAccount(address); // update state to show connected account
-      console.log("Connected:", address);
-    } catch (error) {
-      console.error("Wallet connection failed:", error);
+    // 3️ Connect to your HotelInvestmentManager contract
+    const contractAddress = "0x0000000000000000000000000000000000000000"; // Replace when deployed
+
+    if (contractAddress !== "0x0000000000000000000000000000000000000000") {
+      const hotelContract = new ethers.Contract(
+        contractAddress,
+        HotelInvestmentManagerABI.abi,
+        signer
+      );
+      console.log(" Connected to contract:", hotelContract);
+    } else {
+      console.log(" Contract not deployed yet — skipping contract connection.");
     }
-  };
+
+    console.log("Wallet connected:", address);
+  } catch (error) {
+    console.error(" Wallet connection failed:", error);
+  }
+};
 
   return (
     <nav className="bg-white shadow-sm border-b border-neutral-200 sticky top-0 z-50">

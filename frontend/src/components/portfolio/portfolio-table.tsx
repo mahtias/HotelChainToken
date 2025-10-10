@@ -1,13 +1,13 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { Investment, Hotel } from "../../App";
+//import type { Investment, Hotel } from "../../App";
 
-interface PortfolioTableProps {
-  investments: (Investment & { hotel?: Hotel })[];
-}
+// interface PortfolioTableProps {
+//   investments: (Investment & { hotel?: Hotel })[];
+// }
 
-export default function PortfolioTable({ investments }: PortfolioTableProps) {
+export default function PortfolioTable() {
   const formatCurrency = (cents: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -16,12 +16,18 @@ export default function PortfolioTable({ investments }: PortfolioTableProps) {
       maximumFractionDigits: 0,
     }).format(cents / 100);
   };
-
-  const calculateReturn = (investment: Investment) => {
+  const investments:any [] = [];
+  const calculateReturn = (investment: any) => {
     const returnAmount = investment.currentValue - investment.amount;
     const returnPercent = (returnAmount / investment.amount) * 100;
     return { amount: returnAmount, percent: returnPercent };
-  };
+  }
+
+  // const calculateReturn = (investment: Investment) => {
+  //   const returnAmount = investment.currentValue - investment.amount;
+  //   const returnPercent = (returnAmount / investment.amount) * 100;
+  //   return { amount: returnAmount, percent: returnPercent };
+  // };
 
   if (investments.length === 0) {
     return (

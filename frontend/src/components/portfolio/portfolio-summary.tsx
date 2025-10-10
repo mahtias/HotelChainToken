@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { Portfolio } from "@shared/schema";
+//import type { Portfolio } from "@shared/schema";
 
-interface PortfolioSummaryProps {
-  portfolio?: Portfolio;
-}
-
-export default function PortfolioSummary({ portfolio }: PortfolioSummaryProps) {
+// interface PortfolioSummaryProps {
+//   portfolio?: Portfolio;
+// }
+const portfolio = false
+export default function PortfolioSummary() {
   const formatCurrency = (cents: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -39,27 +39,27 @@ export default function PortfolioSummary({ portfolio }: PortfolioSummaryProps) {
         <div className="space-y-4">
           <div className="flex justify-between">
             <span className="text-neutral-600">Total Investment</span>
-            <span className="font-semibold text-neutral-900">
+            {/* <span className="font-semibold text-neutral-900">
               {formatCurrency(portfolio.totalInvestment)}
-            </span>
+            </span> */}
           </div>
           <div className="flex justify-between">
             <span className="text-neutral-600">Current Value</span>
-            <span className="font-semibold text-neutral-900">
+            {/* <span className="font-semibold text-neutral-900">
               {formatCurrency(portfolio.currentValue)}
-            </span>
+            </span> */}
           </div>
           <div className="flex justify-between">
             <span className="text-neutral-600">Total Return</span>
-            <span className="font-semibold text-secondary">
+            {/* <span className="font-semibold text-secondary">
               +{formatCurrency(portfolio.totalReturn)}
-            </span>
+            </span> */}
           </div>
           <div className="flex justify-between">
             <span className="text-neutral-600">Return Rate</span>
-            <span className="font-semibold text-secondary">
+            {/* <span className="font-semibold text-secondary">
               +{portfolio.returnRate.toFixed(2)}%
-            </span>
+            </span> */}
           </div>
         </div>
       </CardContent>
