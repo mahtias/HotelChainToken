@@ -23,7 +23,7 @@
     "investment",
     "defi"
   ],
-  "author": "HotelVest Team",
+  "author": "Mathias Adonis",
   "license": "MIT",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",

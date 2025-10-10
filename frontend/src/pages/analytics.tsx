@@ -34,7 +34,7 @@ export default function Analytics() {
     );
   }
 
-  const { portfolio } = portfolioData || {};
+  const {portfolio } = portfolioData || {};
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -86,9 +86,9 @@ export default function Analytics() {
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              {/* <div className="text-2xl font-bold">
                 ${marketData?.totalValue ? (marketData.totalValue / 100000000).toFixed(1) : '0'}B
-              </div>
+              </div> */}
               <p className="text-xs text-muted-foreground">
                 Total market capitalization
               </p>
@@ -101,9 +101,9 @@ export default function Analytics() {
               <PieChart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              {/* <div className="text-2xl font-bold">
                 {marketData?.avgReturn?.toFixed(1) || '0'}%
-              </div>
+              </div> */}
               <p className="text-xs text-muted-foreground">
                 Market average annual return
               </p>
@@ -155,27 +155,27 @@ export default function Analytics() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Total Properties</span>
-                  <span className="text-sm font-bold">
+                  {/* <span className="text-sm font-bold">
                     {marketData?.properties || 0}
-                  </span>
+                  </span> */}
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Active Investors</span>
-                  <span className="text-sm">
+                  {/* <span className="text-sm">
                     {marketData?.investors || 0}
-                  </span>
+                  </span> */}
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Market Average Return</span>
-                  <span className="text-sm text-secondary">
+                  {/* <span className="text-sm text-secondary">
                     {marketData?.avgReturn?.toFixed(1) || '0'}%
-                  </span>
+                  </span> */}
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Total Market Value</span>
-                  <span className="text-sm">
+                  {/* <span className="text-sm">
                     ${marketData?.totalValue ? (marketData.totalValue / 100000000).toFixed(1) : '0'}B
-                  </span>
+                  </span> */}
                 </div>
               </div>
             </CardContent>

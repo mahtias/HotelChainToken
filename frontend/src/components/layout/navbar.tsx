@@ -1,5 +1,6 @@
 import { Link, useLocation } from "wouter";
-import { Building, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import logo from "@/assets/images/logo.png";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -67,12 +68,15 @@ export default function Navbar() {
     <nav className="bg-white shadow-sm border-b border-neutral-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Logo  className="text-primary text-2xl mr-3" */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <Building className="text-primary text-2xl mr-3" />
-              <span className="font-bold text-xl text-neutral-900">HotelVest</span>
+              <div className="logo-section"/>
+              <img src={logo} alt="Logo" className="h-8 w-8 mr-2"/>
+              <span className="font-bold text-xl text-neutral-900">DigirealAssets</span>
+              
             </Link>
+            
 
             {/* Desktop Nav */}
             <div className="hidden md:block ml-10">

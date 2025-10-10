@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import PropertyCard from "@/components/properties/property-card";
 import PropertySearch from "@/components/properties/property-search";
-import type { Hotel } from "@shared/schema";
+import type { Hotel } from "../../../backend/shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Properties() {

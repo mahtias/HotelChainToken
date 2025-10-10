@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
+//import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
+//import { Link } from "wouter";
 import PropertyCard from "@/components/properties/property-card";
 import type { Hotel } from "../../../backend/shared/schema";
 
@@ -10,9 +10,9 @@ export default function Home() {
     queryKey: ["/api/hotels"],
   });
 
-  const { data: marketData, isLoading: marketLoading } = useQuery({
-    queryKey: ["/api/market/overview"],
-  });
+  // const { data: marketData, isLoading: marketLoading } = useQuery({
+  //   queryKey: ["/api/market/overview"],
+  // });
 
   const featuredHotels = hotels.slice(0, 3);
 
@@ -103,6 +103,15 @@ export default function Home() {
               Carefully curated hotel properties with exceptional return potential
             </p>
           </div> */}
+            <span className="text-center  " > <br /><br /><br /><br /><br /> <br /><br /><br />
+            <h1 className="text-4xl md:text-5xl font-bold mb-5 " >
+              Invest in Premium Hotel Assets
+            </h1>
+            
+            <p className="text-xl  text-blue-100 max-w-3xl mx-auto animate-pulse animation-delay-700 " >
+              Tokenized real-world hotel investments with transparent returns, professional management, and global diversification opportunities.
+            </p>
+            </span>
 
           {hotelsLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -124,7 +133,7 @@ export default function Home() {
               ))}
             </div>
           )}
-
+       
           {/* <div className="text-center mt-8">
             <Link href="/properties">
               <Button size="lg" className="bg-primary text-white hover:bg-blue-700">
@@ -132,6 +141,7 @@ export default function Home() {
               </Button>
             </Link>
           </div> */}
+        
         </div>
       </section>
       </div>

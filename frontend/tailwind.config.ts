@@ -10,6 +10,7 @@ const config: Config = {
       backgroundImage: {
         hero: "url('./src/assets/images/image3.jpg')",
       },
+      
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

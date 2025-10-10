@@ -1,6 +1,6 @@
-import { Building } from "lucide-react";
+//import { Building } from "lucide-react";
 import { Link } from "wouter";
-
+import logo from "@/assets/images/logo.png";
 export default function Footer() {
   return (
     <footer className="bg-neutral-900 text-white py-12">
@@ -8,8 +8,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center mb-4">
-              <Building className="text-primary text-2xl mr-3" />
-              <span className="font-bold text-xl">HotelVest</span>
+              <div className="logo-section" />
+               <img src={logo} alt="Logo" className="h-8 w-8 mr-2"/>
+              <span className="font-bold text-xl">DigirealAssets</span>
             </div>
             <p className="text-neutral-400 text-sm">
               Democratizing hotel investments through blockchain technology and transparent asset tokenization.
@@ -48,7 +49,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-neutral-800 mt-8 pt-8 text-center text-sm text-neutral-400">
-          <p>&copy; 2024 HotelVest. All rights reserved. | Platform licensed and regulated.</p>
+          <p>&copy; 2025 DigirealAssets. All rights reserved. | Platform licensed and regulated.</p>
         </div>
       </div>
     </footer>
