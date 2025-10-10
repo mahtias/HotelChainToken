@@ -13,7 +13,6 @@ import HotelInvestmentManagerABI from "@/abis/HotelInvestmentManager.json";
 
 export default function Navbar() {
 
-
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [account, setAccount] = useState<string | null>(null);
@@ -148,7 +147,6 @@ export default function Navbar() {
                       <X className="h-6 w-6" />
                     </Button>
                   </div>
-
                   <div className="flex flex-col space-y-2">
                     {navItems.map((item) => (
                       <Link
