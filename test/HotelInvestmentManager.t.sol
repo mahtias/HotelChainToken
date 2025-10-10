@@ -5,9 +5,9 @@ import {Test} from "forge-std/Test.sol";
 import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import {HotelInvestmentManager} from "../src/contracts/HotelInvestmentManager.sol";
-import {HotelAssetToken} from "../src/contracts/HotelAssetToken.sol";
-import {HotelCompliance} from "../src/contracts/HotelCompliance.sol";
+import {HotelInvestmentManager} from "../contracts/HotelInvestmentManager.sol";
+import {HotelAssetToken} from "../contracts/HotelAssetToken.sol";
+import {HotelCompliance} from "../contracts/HotelCompliance.sol";
 import {MockChainlinkPriceOracle} from "./mocks/MockChainlinkPriceOracle.sol";
 
 /// --------------------

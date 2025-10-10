@@ -3,10 +3,10 @@ pragma solidity ^0.8.19;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import {HotelAssetToken} from "HotelAssetToken.sol";
-import {HotelInvestmentToken} from "HotelInvestmentToken.sol";
-import {ChainlinkPriceOracle} from "ChainlinkPriceOracle.sol";
-import {HotelCompliance} from "HotelCompliance.sol";
+import {HotelAssetToken} from "./HotelAssetToken.sol";
+import {HotelInvestmentToken} from "./HotelInvestmentToken.sol";
+import {ChainlinkPriceOracle} from "./ChainlinkPriceOracle.sol";
+import {HotelCompliance} from "./HotelCompliance.sol";
 
 contract HotelInvestmentManager is Ownable, ReentrancyGuard {
     ChainlinkPriceOracle public priceOracle;
