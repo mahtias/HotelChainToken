@@ -70,10 +70,10 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo  className="text-primary text-2xl mr-3" */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center ">
               <div className="logo-section"/>
-              <img src={logo} alt="Logo" className="h-8 w-8 mr-2"/>
-              <span className="font-bold text-xl text-neutral-900">DigirealAssets</span>
+              <img src={logo} alt="Logo" className="h-8 w-8 mr-2 " />
+              <span className="font-bold text-xl text-neutral-900 text-white py-12 ">DigirealAssets</span>
               
             </Link>
             
