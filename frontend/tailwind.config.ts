@@ -8,7 +8,7 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        hero: "url('./src/assets/images/image3.jpg')",
+        hero: "url('./public/assets/images/image3.jpg')",
       },
       
       borderRadius: {

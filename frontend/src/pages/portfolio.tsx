@@ -54,6 +54,7 @@ export default function Portfolio() {
           {/* <PortfolioSummary portfolio={portfolio} /> */}
           
           {/* Asset Allocation */}
+          
           <Card>
             <CardHeader>
               <CardTitle className="text-lg font-semibold">Asset Allocation</CardTitle>

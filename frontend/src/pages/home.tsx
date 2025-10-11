@@ -6,7 +6,7 @@
 //import { Link } from "wouter";
 //import PropertyCard from "@/components/properties/property-card";
 //import type { Hotel } from "../../../backend/shared/schema";
-import image3 from "@/assets/images/image3.jpg";
+import image3 from "../../public/assets/images/image3.jpg";
 
 export default function Home() {
   // const { data: hotels = [], isLoading: hotelsLoading } = useQuery<Hotel[]>({

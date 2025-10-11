@@ -1,6 +1,6 @@
 //import { Building } from "lucide-react";
 import { Link } from "wouter";
-import logo from "@/assets/images/logo.png";
+import logo from "../../../public/assets/images/logo.png";
 export default function Footer() {
   return (
     <footer className="bg-neutral-900 text-white py-12">
