@@ -6,7 +6,7 @@
 //import { Link } from "wouter";
 //import PropertyCard from "@/components/properties/property-card";
 //import type { Hotel } from "../../../backend/shared/schema";
-import image3 from "../../public/assets/images/image3.jpg";
+
 
 export default function Home() {
   // const { data: hotels = [], isLoading: hotelsLoading } = useQuery<Hotel[]>({
@@ -18,10 +18,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Hero Section */}
-      <div
-        className="relative flex items-center justify-center min-h-screen bg-cover bg-center text-white"
-        style={{ backgroundImage: `url(${image3})` }}
-      >
+      <div className="relative flex items-center justify-center min-h-screen bg-cover bg-center text-white"
+           style={{ backgroundImage: "url('/assets/images/image3.jpg')" }}
+           
+       >
+       
         <div className="bg-black/50 p-8 rounded-md text-center max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Invest in Premium Hotel Assets

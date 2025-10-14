@@ -1,6 +1,6 @@
 //import { Building } from "lucide-react";
 import { Link } from "wouter";
-import logo from "../../../public/assets/images/logo.png";
+
 export default function Footer() {
   return (
     <footer className="bg-neutral-900 text-white py-12">
@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center mb-4">
               <div className="logo-section" />
-               <img src={logo} alt="Logo" className="h-8 w-8 mr-2"/>
+               <img src="/assets/images/logo.png" alt="Logo" className="h-8 w-8 mr-2"/>
               <span className="font-bold text-xl">DigirealAssets</span>
             </div>
             <p className="text-neutral-400 text-sm">

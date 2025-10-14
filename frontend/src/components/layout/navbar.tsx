@@ -1,182 +1,134 @@
-import { Link, useLocation } from "wouter";
-import { Menu, X } from "lucide-react";
-import logo from "../../../public/assets/images/logo.png";
+import { Link } from "wouter";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ethers } from "ethers";
-import Web3Modal from "web3modal";
-import EthereumProvider from "@walletconnect/ethereum-provider";
-import  createCoinbaseWalletSDK  from "@coinbase/wallet-sdk";
-//import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
-import HotelInvestmentManagerABI from "@/abis/HotelInvestmentManager.json";
+
 
 export default function Navbar() {
+  const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
-  const [location] = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [account, setAccount] = useState<string | null>(null);
-
-  const navItems = [
-    { label: "Properties", href: "/properties" },
-    { label: "Portfolio", href: "/portfolio" },
-    { label: "Analytics", href: "/analytics" },
-    { label: "Calculator", href: "/calculator" },
-    { label: "Contracts", href: "/contracts" },
-  ];
-
-  const isActive = (href: string) => {
-    if (href === "/" && location === "/") return true;
-    return location === href;
+  const handleMouseEnter = (menu: string) => {
+    if (timeoutId) clearTimeout(timeoutId);
+    setHoveredMenu(menu);
   };
 
- const connectWallet = async () => {
-  try {
-    const web3Modal = new Web3Modal({
-  cacheProvider: false,
-  providerOptions: {
-    injected: { package: null },
-    walletconnect: {
-      package: EthereumProvider,
-      options: {
-        projectId: "YOUR_WALLETCONNECT_PROJECT_ID", // Required for v2
-        chains: [1], // mainnet
-        showQrModal: true,
-      },
-    },
-    coinbasewallet: {
-      package: createCoinbaseWalletSDK,
-      options: {
-        appName: "HotelVest",
-      },
-    },
-  },
-});
-
-    // 1️ Open wallet popup
-    const instance = await web3Modal.connect();
-
-    // 2️ Create ethers provider and signer
-    const provider = new ethers.providers.Web3Provider(instance);
-    const signer = provider.getSigner();
-    const address = await signer.getAddress();
-    setAccount(address);
-
-    // 3️ Connect to your HotelInvestmentManager contract
-    const contractAddress = "0x0000000000000000000000000000000000000000"; // Replace when deployed
-
-    if (contractAddress !== "0x0000000000000000000000000000000000000000") {
-      const hotelContract = new ethers.Contract(
-        contractAddress,
-        HotelInvestmentManagerABI.abi,
-        signer
-      );
-      console.log(" Connected to contract:", hotelContract);
-    } else {
-      console.log(" Contract not deployed yet — skipping contract connection.");
-    }
-
-    console.log("Wallet connected:", address);
-  } catch (error) {
-    console.error(" Wallet connection failed:", error);
-  }
-};
+  const handleMouseLeave = () => {
+    const id = setTimeout(() => setHoveredMenu(null), 100); // 100ms delay
+    setTimeoutId(id);
+  };
 
   return (
-    <nav className="bg-white shadow-sm border-b border-neutral-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo  className="text-primary text-2xl mr-3" */}
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center ">
-              <div className="logo-section"/>
-              <img src={logo} alt="Logo" className="h-8 w-8 mr-2 " />
-              <span className="font-bold text-xl text-neutral-900 text-white py-12 ">DigirealAssets</span>
-              
-            </Link>
-            
+    <nav className="bg-white shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+        {/* Logo */}
+        <Link href="/" className="flex items-center">
+          <img src="/assets/images/logo.png" alt="Logo" className="h-8 w-8 mr-2" />
+          <span className="text-2xl font-bold text-dark cursor-pointer">
+            DigiRealAssets
+          </span>
+        </Link>
 
-            {/* Desktop Nav */}
-            <div className="hidden md:block ml-10">
-              <div className="flex items-baseline space-x-4">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`px-3 py-2 text-sm font-medium transition-colors ${
-                      isActive(item.href)
-                        ? "text-primary border-b-2 border-primary"
-                        : "text-neutral-500 hover:text-neutral-700"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right side */}
-          <div className="flex items-center space-x-4">
-            {/* Connect Wallet Button */}
-            <Button
-              className="hidden md:flex bg-primary text-white hover:bg-blue-700"
-              onClick={connectWallet}
+        {/* Menus */}
+        <ul className="flex space-x-8 text-neutral-800 font-medium">
+          {[
+            {
+              label: "Invest",
+              items: [
+                { label: "Tokenized Real-World Assets", href: "/properties" },
+              ],
+            },
+            {
+              label: "Tokenize",
+              items: [
+                { label: "Fund Tokenization", href: "/tokenization" },
+                { label: "Fund Administration", href: "/administration" },
+                { label: "Partner Ecosystem", href: "/ecosystem" },
+              ],
+            },
+            {
+              label: "Advise",
+              items: [
+                { label: "Wealth Management", href: "/wealth" },
+                { label: "Crypto & Strategies", href: "/crypto" },
+              ],
+            },
+            {
+              label: "Learn",
+              items: [
+                { label: "Blog", href: "/blog" },
+                { label: "Whitepapers", href: "/whitepaper" },
+                { label: "About Tokenization", href: "/about-tokenization" },
+                { label: "How We're Different", href: "/where-different" },
+                { label: "APIs", href: "/api" },
+                { label: "Bug Bounty", href: "/bounty" },
+              ],
+            },
+            {
+              label: "About",
+              items: [
+                { label: "Our Story", href: "/story" },
+                { label: "Media Coverage & Press Releases", href: "/media" },
+                { label: "Careers", href: "/careers" },
+              ],
+            },
+            {
+              label: "Contact",
+              items: [{ label: "Get in Touch", href: "/contact" }],
+             
+            },
+          ].map((menu) => (
+            <li
+              key={menu.label}
+              className="relative"
+              onMouseEnter={() => handleMouseEnter(menu.label)}
+              onMouseLeave={handleMouseLeave}
             >
-              {account
-                ? `Connected: ${account.slice(0, 6)}...${account.slice(-4)}`
-                : "Connect Wallet"}
-            </Button>
+              <span
+                className={`cursor-pointer transition-colors duration-200 ${
+                  hoveredMenu === menu.label ? "text-black" : "hover:text-black"
+                }`}
+              >
+                {menu.label}
+              </span>
 
-            {/* Mobile menu */}
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-80">
-                <div className="flex flex-col space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-lg">Menu</span>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <X className="h-6 w-6" />
-                    </Button>
-                  </div>
-                  <div className="flex flex-col space-y-2">
-                    {navItems.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                          isActive(item.href)
-                            ? "text-primary bg-primary/10"
-                            : "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
-                        }`}
-                      >
+              {/* Dropdown */}
+              <ul
+                className={`absolute left-0 mt-2 bg-white border rounded-lg shadow-lg py-2 w-56 transition-all duration-300 ease-out transform
+                ${
+                  hoveredMenu === menu.label
+                    ? "opacity-100 translate-y-0 visible"
+                    : "opacity-0 -translate-y-2 invisible"
+                }`}
+              >
+                {menu.items.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href}>
+                      <span className="block px-4 py-2 hover:bg-gray-100 hover:text-black transition-colors duration-200">
                         {item.label}
-                      </Link>
-                    ))}
-                  </div>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
 
-                  <Button
-                    className="bg-primary text-white hover:bg-blue-700"
-                    onClick={connectWallet}
-                  >
-                    {account
-                      ? `Connected: ${account.slice(0, 6)}...${account.slice(-4)}`
-                      : "Connect Wallet"}
-                  </Button>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-        </div>
+          {/* Auth Links */}
+          <li>
+            |  &nbsp;
+            <Link href="/signup">
+              <span className="hover:text-black transition-colors duration-200">
+                Sign Up
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link href="/login">
+              <span className="hover:text-black transition-colors duration-200">
+                Login
+              </span>
+            </Link>
+          </li>
+        </ul>
       </div>
     </nav>
   );
