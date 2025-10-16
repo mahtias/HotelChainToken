@@ -11,7 +11,9 @@ import Portfolio from "@/pages/portfolio";
 import Analytics from "@/pages/analytics";
 import Calculator from "@/pages/calculator";
 import Contracts from "@/pages/contracts";
+import Story from "@/pages/story";
 import NotFound from "@/pages/not-found";
+
 
 interface AppProps {
   apiUrl: string;
@@ -29,6 +31,7 @@ function Router() {
           <Route path="/analytics" component={Analytics} />
           <Route path="/calculator" component={Calculator} />
           <Route path="/contracts" component={Contracts} />
+          <Route path="/story" component={Story} />
           <Route component={NotFound} />
         </Switch>
       </main>

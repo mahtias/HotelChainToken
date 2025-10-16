@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "wouter";
 
 const menus = [
@@ -49,6 +49,19 @@ const menus = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const closeTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  // Handles desktop hover with delay
+  const handleMouseEnter = (label: string) => {
+    if (closeTimeout.current) clearTimeout(closeTimeout.current);
+    setOpenDropdown(label);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeout.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 250); // ⏱ delay before closing dropdown (250 ms)
+  };
 
   // Toggle dropdown in mobile menu
   const toggleDropdown = (label: string) => {
@@ -60,17 +73,13 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <img
-            src="/assets/images/logo.png"
-            alt="Logo"
-            className="h-8 w-8 mr-2"
-          />
+          <img src="/assets/images/logo.png" alt="Logo" className="h-8 w-8 mr-2" />
           <span className="text-2xl font-bold text-dark cursor-pointer">
             DigiRealAssets
           </span>
         </Link>
 
-        {/* Hamburger button for mobile */}
+        {/* Hamburger for mobile */}
         <button
           className="md:hidden flex items-center focus:outline-none"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -95,32 +104,44 @@ export default function Navbar() {
           </div>
         </button>
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-8 text-neutral-800 font-medium">
+        {/* Desktop menu */}
+        <ul className="hidden md:flex space-x-6 text-neutral-800 font-medium">
           {menus.map((menu) => (
             <li
               key={menu.label}
-              className="relative group cursor-pointer"
-              onMouseLeave={() => setOpenDropdown(null)}
-              onMouseEnter={() => setOpenDropdown(menu.label)}
+              className="relative cursor-pointer"
+              onMouseEnter={() => handleMouseEnter(menu.label)}
+              onMouseLeave={handleMouseLeave}
             >
-              <span className="hover:text-black">{menu.label}</span>
+              <span
+                className={`hover:text-black transition-colors duration-200 ${
+                  openDropdown === menu.label ? "text-black" : ""
+                }`}
+              >
+                {menu.label}
+              </span>
+
               {/* Dropdown */}
-              {openDropdown === menu.label && (
-                <ul className="absolute left-0 mt-2 bg-white border rounded-lg shadow-lg py-2 w-56 z-50">
-                  {menu.items.map((item) => (
-                    <li key={item.href}>
-                      <Link href={item.href}>
-                        <span className="block px-4 py-2 hover:bg-gray-100 hover:text-black transition-colors duration-200">
-                          {item.label}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <ul
+                className={`absolute left-0 mt-2 bg-white border rounded-lg shadow-lg py-2 w-56 transition-all duration-300 ease-out transform ${
+                  openDropdown === menu.label
+                    ? "opacity-100 translate-y-0 visible"
+                    : "opacity-0 -translate-y-2 invisible"
+                }`}
+              >
+                {menu.items.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href}>
+                      <span className="block px-4 py-2 hover:bg-gray-100 hover:text-black transition-colors duration-200">
+                        {item.label}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))}
+
           {/* Auth links */}
           <li>
             <Link href="/signup">
@@ -139,7 +160,7 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <div
         className={`md:hidden bg-white border-t border-gray-200 ${
           mobileMenuOpen ? "block" : "hidden"
@@ -151,7 +172,6 @@ export default function Navbar() {
               <button
                 className="w-full flex justify-between items-center py-2 hover:text-black focus:outline-none"
                 onClick={() => toggleDropdown(menu.label)}
-                aria-expanded={openDropdown === menu.label}
               >
                 {menu.label}
                 <svg
@@ -163,11 +183,7 @@ export default function Navbar() {
                   strokeWidth="2"
                   viewBox="0 0 24 24"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19 9l-7 7-7-7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               {openDropdown === menu.label && (
@@ -175,9 +191,7 @@ export default function Navbar() {
                   {menu.items.map((item) => (
                     <li key={item.href}>
                       <Link href={item.href}>
-                        <span className="block py-1 hover:text-black">
-                          {item.label}
-                        </span>
+                        <span className="block py-1 hover:text-black">{item.label}</span>
                       </Link>
                     </li>
                   ))}
@@ -185,7 +199,6 @@ export default function Navbar() {
               )}
             </li>
           ))}
-          {/* Auth links mobile */}
           <li>
             <Link href="/signup">
               <span className="block py-2 hover:text-black">Sign Up</span>
@@ -198,7 +211,6 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      
     </nav>
   );
 }
