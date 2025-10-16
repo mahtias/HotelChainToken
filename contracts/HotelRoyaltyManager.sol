@@ -73,7 +73,7 @@ contract HotelRoyaltyManager is Ownable, ReentrancyGuard {
         stream.lastDistribution = block.timestamp;
         totalPlatformFees = totalPlatformFees.add(platformFee);
 
-        // ✅ Call distributeDividends on HotelInvestmentManager
+        //  Call distributeDividends on HotelInvestmentManager
 
         investmentManager.distributeDividends{value: investorAmount}(_poolId);
         emit RevenueDistributed(_poolId, pendingRevenue, platformFee, investorAmount, block.timestamp);

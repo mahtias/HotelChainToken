@@ -59,10 +59,8 @@ contract ChainlinkPriceOracle is Ownable, ReentrancyGuard {
         PriceFeed memory feed = priceFeeds[asset];
         require(feed.isActive, "Price feed not active");
 
-        (
-            , // roundId
-            int256 price_,
-            , // startedAt
+        (, // roundId
+            int256 price_,, // startedAt
             uint256 timeStamp,
             // answeredInRound
         ) = feed.priceFeed.latestRoundData();
@@ -116,10 +114,8 @@ contract ChainlinkPriceOracle is Ownable, ReentrancyGuard {
         PriceFeed memory feed = priceFeeds[asset];
         require(feed.isActive, "Price feed not active");
 
-        (
-            , // id
-            int256 historicalPrice,
-            , // startedAt
+        (, // id
+            int256 historicalPrice,, // startedAt
             uint256 updatedAt,
             // answeredInRound
         ) = feed.priceFeed.getRoundData(roundId);
