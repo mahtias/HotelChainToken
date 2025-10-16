@@ -9,8 +9,8 @@ env:
   FOUNDRY_PROFILE: ci
 
 jobs:
-  check:
-    name: Foundry project
+  build-and-deploy:
+    name: Foundry + Vercel Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,20 +21,43 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
 
       - name: Show Forge version
-        run: |
-          forge --version
+        run: forge --version
 
       - name: Run Forge fmt
-        run: |
-          forge fmt --check
-        id: fmt
+        run: forge fmt --check
 
       - name: Run Forge build
-        run: |
-          forge build --sizes
-        id: build
+        run: forge build --sizes
 
       - name: Run Forge tests
+        run: forge test -vvv
+
+      # ✅ Debug step to confirm secrets exist (does NOT print values)
+      - name: Check if Vercel secrets exist
         run: |
-          forge test -vvv
-        id: test
+          if [ -z "${{ secrets.VERCEL_TOKEN }}" ]; then
+            echo "❌ Missing VERCEL_TOKEN secret"
+            exit 1
+          else
+            echo "✅ VERCEL_TOKEN found"
+          fi
+          if [ -z "${{ secrets.VERCEL_ORG_ID }}" ]; then
+            echo "❌ Missing VERCEL_ORG_ID secret"
+            exit 1
+          else
+            echo "✅ VERCEL_ORG_ID found"
+          fi
+          if [ -z "${{ secrets.VERCEL_PROJECT_ID }}" ]; then
+            echo "❌ Missing VERCEL_PROJECT_ID secret"
+            exit 1
+          else
+            echo "✅ VERCEL_PROJECT_ID found"
+          fi
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./frontend
