@@ -22,6 +22,7 @@ contract ChainlinkPriceOracle is Ownable, ReentrancyGuard {
 
     event PriceFeedDeactivated(string indexed asset);
 
+
     constructor() {
         _addPriceFeed("ETH", 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419, "ETH / USD");
         _addPriceFeed("BTC", 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c, "BTC / USD");
