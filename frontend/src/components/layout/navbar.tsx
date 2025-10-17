@@ -3,15 +3,11 @@ import { Link } from "wouter";
 
 const menus = [
   {
+    
     label: "Invest",
-    items: [{ label: "Tokenized Real-World Assets", href: "/properties" }],
-  },
-  {
-    label: "Tokenize",
     items: [
-      { label: "Fund Tokenization", href: "/tokenization" },
-      { label: "Fund Administration", href: "/administration" },
-      { label: "Partner Ecosystem", href: "/ecosystem" },
+      { label: "Tokenized Real-World Assets", href: "/properties" },
+      { label: "Partner Ecosystem", href: "/ecosystem" }
     ],
   },
   {
@@ -22,28 +18,28 @@ const menus = [
     ],
   },
   {
-    label: "Learn",
+    label: "About",
     items: [
       { label: "Blog", href: "/blog" },
       { label: "Whitepapers", href: "/whitepaper" },
       { label: "About Tokenization", href: "/about-tokenization" },
       { label: "How We're Different", href: "/where-different" },
-      { label: "APIs", href: "/api" },
-      { label: "Bug Bounty", href: "/bounty" },
-    ],
-  },
-  {
-    label: "About",
-    items: [
+      { label: "Contact", href: "/contact" },
       { label: "Our Story", href: "/story" },
-      { label: "Media Coverage & Press Releases", href: "/media" },
-      { label: "Careers", href: "/careers" },
     ],
   },
-  {
-    label: "Contact",
-    items: [{ label: "Get in Touch", href: "/contact" }],
-  },
+  // {
+  //   label: "About",
+  //   items: [
+  //     { label: "Our Story", href: "/story" },
+  //     { label: "Media Coverage & Press Releases", href: "/media" },
+  //     { label: "Careers", href: "/careers" },
+  //   ],
+  // },
+  // {
+  //   label: "Contact",
+  //   items: [{ label: "Get in Touch", href: "/contact" }],
+  // },
 ];
 
 export default function Navbar() {

@@ -2,6 +2,8 @@ name: CI
 
 on:
   push:
+    branches:
+      - dev
   pull_request:
   workflow_dispatch:
 
@@ -9,9 +11,10 @@ env:
   FOUNDRY_PROFILE: ci
 
 jobs:
-  build-and-deploy:
-    name: Foundry + Vercel Deploy
+  foundry:
+    name: Foundry Build & Test
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,45 +22,34 @@ jobs:
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
 
       - name: Show Forge version
         run: forge --version
 
-      - name: Run Forge fmt
+      - name: Check formatting
         run: forge fmt --check
 
-      - name: Run Forge build
+      - name: Build contracts
         run: forge build --sizes
 
-      - name: Run Forge tests
+      - name: Run tests
         run: forge test -vvv
 
-      # ✅ Debug step to confirm secrets exist (does NOT print values)
-      - name: Check if Vercel secrets exist
-        run: |
-          if [ -z "${{ secrets.VERCEL_TOKEN }}" ]; then
-            echo "❌ Missing VERCEL_TOKEN secret"
-            exit 1
-          else
-            echo "✅ VERCEL_TOKEN found"
-          fi
-          if [ -z "${{ secrets.VERCEL_ORG_ID }}" ]; then
-            echo "❌ Missing VERCEL_ORG_ID secret"
-            exit 1
-          else
-            echo "✅ VERCEL_ORG_ID found"
-          fi
-          if [ -z "${{ secrets.VERCEL_PROJECT_ID }}" ]; then
-            echo "❌ Missing VERCEL_PROJECT_ID secret"
-            exit 1
-          else
-            echo "✅ VERCEL_PROJECT_ID found"
-          fi
+  deploy:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    needs: foundry
+    if: github.ref == 'refs/heads/dev'
 
-      - name: Deploy to Vercel
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy frontend to Vercel
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./frontend
+          vercel-project-id: ${{secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./frontend  # change if your frontend folder has a different name

@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { FaLinkedin,FaYoutube ,FaInstagram } from "react-icons/fa";
+import { FaLinkedin,FaYoutube ,FaInstagram, FaTwitter } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -33,23 +33,6 @@ export default function Footer() {
                   Tokenization
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Tokenize */}
-          <div className="w-1/2 sm:w-1/3 md:w-auto">
-            <h3 className="font-semibold mb-4">Tokenize</h3>
-            <ul className="space-y-2 text-sm text-neutral-400">
-              <li>
-                <Link href="/tokenization" className="hover:text-white">
-                  Fund Tokenization
-                </Link>
-              </li>
-              <li>
-                <Link href="/administration" className="hover:text-white">
-                  Fund Administration
-                </Link>
-              </li>
               <li>
                 <Link href="/ecosystem" className="hover:text-white">
                   Partner Ecosystem
@@ -77,7 +60,7 @@ export default function Footer() {
 
           {/* Learn */}
           <div className="w-1/2 sm:w-1/3 md:w-auto">
-            <h3 className="font-semibold mb-4">Learn</h3>
+            <h3 className="font-semibold mb-4">About</h3>
             <ul className="space-y-2 text-sm text-neutral-400">
               <li>
                 <Link href="/blog" className="hover:text-white">
@@ -99,28 +82,12 @@ export default function Footer() {
                   How We're Different
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* About */}
-          <div className="w-1/2 sm:w-1/3 md:w-auto">
-            <h3 className="font-semibold mb-4">About</h3>
-            <ul className="space-y-2 text-sm text-neutral-400">
-              <li>
+               <li>
                 <a href="#" className="hover:text-white">
                   Our story
                 </a>
               </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Media Coverage
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Careers
-                </a>
-              </li>
+
               <li>
                 <a href="#" className="hover:text-white">
                   Contact
@@ -183,8 +150,8 @@ export default function Footer() {
       </h3>
                </div>
 
-               <div className="w-1/2 sm:w-1/3 md:w-auto">
-                <h3 className="font-semibold mb-4"> <a
+           <div className="w-1/2 sm:w-1/3 md:w-auto">
+          <h3 className="font-semibold mb-4"> <a
         href="#"
         target="_blank"
         rel="noopener noreferrer"
@@ -192,6 +159,18 @@ export default function Footer() {
         className="hover:text-red-600 transition-colors duration-300"
       >
         <FaInstagram className="w-6 h-6" />
+      </a>
+      </h3>
+      </div>
+          <div className="w-1/2 sm:w-1/3 md:w-auto">
+                <h3 className="font-semibold mb-4"> <a
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="YouTube"
+        className="hover:text-red-600 transition-colors duration-300"
+      >
+        <FaTwitter className="w-6 h-6" />
       </a>
       </h3>
                </div>
