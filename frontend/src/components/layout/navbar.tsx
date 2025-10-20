@@ -6,8 +6,8 @@ const menus = [
     
     label: "Invest",
     items: [
-      { label: "Tokenized Real-World Assets", href: "/properties" },
-      { label: "Partner Ecosystem", href: "/ecosystem" }
+      { label: "Tokenized Real-World Assets", href: "/invest" },
+      { label: "Partner Ecosystem", href: "/partner-ecosystem" }
     ],
   },
   {
