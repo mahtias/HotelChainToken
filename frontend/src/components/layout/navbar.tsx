@@ -1,65 +1,17 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Link } from "wouter";
-
-const menus = [
-  {
-    
-    label: "Invest",
-    items: [
-      { label: "Tokenized Real-World Assets", href: "/invest" },
-      { label: "Partner Ecosystem", href: "/partner-ecosystem" }
-    ],
-  },
-  {
-    label: "Advise",
-    items: [
-      { label: "Wealth Management", href: "/wealth" },
-      { label: "Crypto & Strategies", href: "/crypto" },
-    ],
-  },
-  {
-    label: "About",
-    items: [
-      { label: "Blog", href: "/blog" },
-      { label: "Whitepapers", href: "/whitepaper" },
-      { label: "About Tokenization", href: "/about-tokenization" },
-      { label: "How We're Different", href: "/where-different" },
-      { label: "Contact", href: "/contact" },
-      { label: "Our Story", href: "/story" },
-    ],
-  },
-  // {
-  //   label: "About",
-  //   items: [
-  //     { label: "Our Story", href: "/story" },
-  //     { label: "Media Coverage & Press Releases", href: "/media" },
-  //     { label: "Careers", href: "/careers" },
-  //   ],
-  // },
-  // {
-  //   label: "Contact",
-  //   items: [{ label: "Get in Touch", href: "/contact" }],
-  // },
-];
+import { Menu } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const closeTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  // Handles desktop hover with delay
-  const handleMouseEnter = (label: string) => {
-    if (closeTimeout.current) clearTimeout(closeTimeout.current);
-    setOpenDropdown(label);
-  };
-
-  const handleMouseLeave = () => {
-    closeTimeout.current = setTimeout(() => {
-      setOpenDropdown(null);
-    }, 250); // ⏱ delay before closing dropdown (250 ms)
-  };
-
-  // Toggle dropdown in mobile menu
   const toggleDropdown = (label: string) => {
     setOpenDropdown(openDropdown === label ? null : label);
   };
@@ -100,43 +52,81 @@ export default function Navbar() {
           </div>
         </button>
 
-        {/* Desktop menu */}
-        <ul className="hidden md:flex space-x-6 text-neutral-800 font-medium">
-          {menus.map((menu) => (
-            <li
-              key={menu.label}
-              className="relative cursor-pointer"
-              onMouseEnter={() => handleMouseEnter(menu.label)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <span
-                className={`hover:text-black transition-colors duration-200 ${
-                  openDropdown === menu.label ? "text-black" : ""
-                }`}
-              >
-                {menu.label}
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex space-x-6 text-neutral-800 font-medium items-center">
+          {/* Property (no dropdown) */}
+          <li>
+            <Link href="/properties">
+              <span className="hover:text-black transition-colors duration-200">
+                Properties
               </span>
+            </Link>
+          </li>
 
-              {/* Dropdown */}
-              <ul
-                className={`absolute left-0 mt-2 bg-white border rounded-lg shadow-lg py-2 w-56 transition-all duration-300 ease-out transform ${
-                  openDropdown === menu.label
-                    ? "opacity-100 translate-y-0 visible"
-                    : "opacity-0 -translate-y-2 invisible"
-                }`}
-              >
-                {menu.items.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href}>
-                      <span className="block px-4 py-2 hover:bg-gray-100 hover:text-black transition-colors duration-200">
-                        {item.label}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
+          {/* Portfolio (no dropdown) */}
+          {/* <li>
+            <Link href="/portfolio">
+              <span className="hover:text-black transition-colors duration-200">
+                Portfolio
+              </span>
+            </Link>
+          </li> */}
+
+          {/* About (with dropdown) */}
+          <li
+            className="relative cursor-pointer"
+            onMouseEnter={() => setOpenDropdown("About")}
+            onMouseLeave={() => setOpenDropdown(null)}
+          >
+            <span
+              className={`hover:text-black transition-colors duration-200 ${
+                openDropdown === "About" ? "text-black" : ""
+              }`}
+            >
+              About
+            </span>
+
+            <ul
+              className={`absolute left-0 mt-2 bg-white border rounded-lg shadow-lg py-2 w-56 transition-all duration-300 ease-out transform ${
+                openDropdown === "About"
+                  ? "opacity-100 translate-y-0 visible"
+                  : "opacity-0 -translate-y-2 invisible"
+              }`}
+            >
+              <li>
+                <Link href="/blog">
+                  <span className="block px-4 py-2 hover:bg-gray-100">Blog</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/whitepaper">
+                  <span className="block px-4 py-2 hover:bg-gray-100">Whitepapers</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/about-tokenization">
+                  <span className="block px-4 py-2 hover:bg-gray-100">
+                    About Tokenization
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact">
+                  <span className="block px-4 py-2 hover:bg-gray-100">Contact</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/story">
+                  <span className="block px-4 py-2 hover:bg-gray-100">Our Story</span>
+                </Link>
+              </li>
+               <li>
+                <Link href="/partner-ecosystem">
+                  <span className="block px-4 py-2 hover:bg-gray-100">Ecosystem</span>
+                </Link>
+              </li>
+            </ul>
+          </li>
 
           {/* Auth links */}
           <li>
@@ -153,48 +143,110 @@ export default function Navbar() {
               </span>
             </Link>
           </li>
+
+          {/* Wallet / Settings icon */}
+          <li>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition-colors"
+                  aria-label="Open menu"
+                >
+                  <Menu className="h-5 w-5 text-gray-700" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-44">
+                <DropdownMenuItem onClick={() => alert("Connect Wallet")}>
+                  🔗 Connect Wallet
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => alert("Profile")}>
+                  👤 Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => alert("Logout")}>
+                  🚪 Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </li>
         </ul>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <div
         className={`md:hidden bg-white border-t border-gray-200 ${
           mobileMenuOpen ? "block" : "hidden"
         }`}
       >
         <ul className="flex flex-col px-4 py-3 space-y-1 font-medium text-neutral-800">
-          {menus.map((menu) => (
-            <li key={menu.label}>
-              <button
-                className="w-full flex justify-between items-center py-2 hover:text-black focus:outline-none"
-                onClick={() => toggleDropdown(menu.label)}
+          <li>
+            <Link href="/property">
+              <span className="block py-2 hover:text-black">Properties</span>
+            </Link>
+          </li>
+          {/* <li>
+            <Link href="/portfolio">
+              <span className="block py-2 hover:text-black">Portfolio</span>
+            </Link>
+          </li> */}
+
+          {/* About dropdown on mobile */}
+          <li>
+            <button
+              className="w-full flex justify-between items-center py-2 hover:text-black focus:outline-none"
+              onClick={() => toggleDropdown("About")}
+            >
+              About
+              <svg
+                className={`w-4 h-4 ml-2 transition-transform ${
+                  openDropdown === "About" ? "rotate-180" : "rotate-0"
+                }`}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
               >
-                {menu.label}
-                <svg
-                  className={`w-4 h-4 ml-2 transition-transform ${
-                    openDropdown === menu.label ? "rotate-180" : "rotate-0"
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {openDropdown === menu.label && (
-                <ul className="pl-4 mt-1 border-l border-gray-300">
-                  {menu.items.map((item) => (
-                    <li key={item.href}>
-                      <Link href={item.href}>
-                        <span className="block py-1 hover:text-black">{item.label}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {openDropdown === "About" && (
+              <ul className="pl-4 mt-1 border-l border-gray-300">
+                <li>
+                  <Link href="/blog">
+                    <span className="block py-1 hover:text-black">Blog</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/whitepaper">
+                    <span className="block py-1 hover:text-black">Whitepapers</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about-tokenization">
+                    <span className="block py-1 hover:text-black">
+                      About Tokenization
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact">
+                    <span className="block py-1 hover:text-black">Contact</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/story">
+                    <span className="block py-1 hover:text-black">Our Story</span>
+                  </Link>
+                </li>
+                 <li>
+                  <Link href="/partner-ecosystem">
+                    <span className="block py-1 hover:text-black">Partner Ecosystem</span>
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          {/* Auth links */}
           <li>
             <Link href="/signup">
               <span className="block py-2 hover:text-black">Sign Up</span>
@@ -204,6 +256,29 @@ export default function Navbar() {
             <Link href="/login">
               <span className="block py-2 hover:text-black">Login</span>
             </Link>
+          </li>
+
+          {/* Wallet / Settings menu */}
+          <li className="pt-3 border-t border-gray-200">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center space-x-2 w-full py-2 hover:bg-gray-100 rounded-md">
+                  <Menu className="h-5 w-5 text-gray-700 ml-1" />
+                  <span>Menu</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-44">
+                <DropdownMenuItem onClick={() => alert("Connect Wallet")}>
+                  🔗 Connect Wallet
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => alert("Profile")}>
+                  👤 Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => alert("Logout")}>
+                  🚪 Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </li>
         </ul>
       </div>

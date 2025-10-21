@@ -1,28 +1,66 @@
 // src/pages/home.tsx
-
-//import { useQuery } from "@tanstack/react-query";
-//import { Button } from "@/components/ui/button";
-//import { Card, CardContent } from "@/components/ui/card";
-//import { Link } from "wouter";
-//import PropertyCard from "@/components/properties/property-card";
-//import type { Hotel } from "../../../backend/shared/schema";
-
-
+import React from "react";
 export default function Home() {
-  // const { data: hotels = [], isLoading: hotelsLoading } = useQuery<Hotel[]>({
-  //   queryKey: ["/api/hotels"],
-  // });
-
-  // const featuredHotels = hotels.slice(0, 3);
+  const topHotels = [
+      {
+    name: "Burj Al Arab, Dubai",
+    location: "United Arab Emirates",
+    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde",
+  },
+  {
+    name: "The Plaza, New York",
+    location: "USA",
+    image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb2108b",
+  },
+  {
+    name: "Marina Bay Sands, Singapore",
+    location: "Singapore",
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+  },
+  {
+    name: "Ritz Paris, France",
+    location: "France",
+    image: "https://images.unsplash.com/photo-1505691723518-36a1f88a37f2",
+  },
+  {
+    name: "Taj Mahal Palace, Mumbai",
+    location: "India",
+    image: "https://images.unsplash.com/photo-1503437313881-503a91226422",
+  },
+  {
+    name: "Four Seasons Resort Bora Bora",
+    location: "French Polynesia",
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+  },
+  {
+    name: "The Beverly Hills Hotel",
+    location: "Los Angeles, USA",
+    image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb2108b",
+  },
+  {
+    name: "Hotel de Paris, Monte Carlo",
+    location: "Monaco",
+    image: "https://images.unsplash.com/photo-1503437313881-503a91226422",
+  },
+  {
+    name: "The Savoy, London",
+    location: "United Kingdom",
+    image: "https://images.unsplash.com/photo-1551884170-09fb70a3a2d7",
+  },
+  {
+    name: "Aman Tokyo, Japan",
+    location: "Japan",
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+  },
+  ];
 
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Hero Section */}
-      <div className="relative flex items-center justify-center min-h-screen bg-cover bg-center text-white"
-           style={{ backgroundImage: "url('/assets/images/image3.jpg')" }}
-           
-       >
-       
+      <div
+        className="relative flex items-center justify-center min-h-screen bg-cover bg-center text-white"
+        style={{ backgroundImage: "url('/assets/images/image3.jpg')" }}
+      >
         <div className="bg-black/50 p-8 rounded-md text-center max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Invest in Premium Hotel Assets
@@ -30,19 +68,7 @@ export default function Home() {
           <p className="text-lg md:text-xl text-blue-100 mb-6 animate-pulse">
             Tokenized real-world hotel investments with transparent returns, professional management, and global diversification opportunities.
           </p>
-          {/* Uncomment below when ready to link */}
-          {/* 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/properties">
-              <Button size="lg" className="bg-white text-primary hover:bg-neutral-100">
-                Browse Properties
-              </Button>
-            </Link>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-              Learn More
-            </Button>
-          </div>
-          */}
+
         </div>
       </div>
 
@@ -56,32 +82,36 @@ export default function Home() {
             <p className="text-neutral-600">
               Carefully curated hotel properties with exceptional return potential
             </p>
+             <h4 className="text-3xl text-center md:text-4xl font-bold text-neutral-800 mb-2">Top popular Hotel in the world </h4>
           </div>
-
-          {/* Placeholder grid for properties */}
-          {/* 
-          {hotelsLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[...Array(3)].map((_, i) => (
-                <Card key={i} className="animate-pulse">
-                  <div className="h-48 bg-neutral-200"></div>
-                  <CardContent className="p-6">
-                    <div className="h-6 bg-neutral-200 rounded mb-4"></div>
-                    <div className="h-4 bg-neutral-200 rounded mb-2"></div>
-                    <div className="h-4 bg-neutral-200 rounded"></div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredHotels.map((hotel) => (
-                <PropertyCard key={hotel.id} hotel={hotel} />
-              ))}
-            </div>
-          )} */}
+         
+            {/* Top 10 Hotels Section */}
+          {/* Hotel Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+            {topHotels.map((hotel, index) => (
+              <div
+                key={index}
+                className="relative overflow-hidden rounded-xl shadow-md group cursor-pointer"
+              >
+                <img
+                  src={hotel.image}
+                  alt={hotel.name}
+                  className="w-full h-60 object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                  <span className="text-white text-lg font-semibold text-center px-2">
+                    {hotel.name}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+       
         </div>
       </section>
+
+     
+     
     </div>
   );
 }

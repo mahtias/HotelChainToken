@@ -123,22 +123,18 @@ export default function Footer() {
             </ul>
           </div>
           <div className="w-1/2 sm:w-1/3 md:w-auto">
-            <h3 className="font-semibold mb-4">
-              <a
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn"
-        className="hover:text-blue-700 transition-colors duration-300"
-      >
-        <FaLinkedin className="w-6 h-6" />
+            <h3 className="font-semibold mb-4">Community </h3>
+            <ul className="space-y-2 text-sm text-neutral-400">
+              <li>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+        className="hover:text-blue-700 transition-colors duration-300" >
+        <FaLinkedin className="w-6 h-6" /> 
       </a>
-       
-               </h3>
-              
-          </div>
-           <div className="w-1/2 sm:w-1/3 md:w-auto">
-                <h3 className="font-semibold mb-4"> <a
+      
+      </li>
+
+      <li>
+         <a
         href="#"
         target="_blank"
         rel="noopener noreferrer"
@@ -147,11 +143,9 @@ export default function Footer() {
       >
         <FaYoutube className="w-6 h-6" />
       </a>
-      </h3>
-               </div>
-
-           <div className="w-1/2 sm:w-1/3 md:w-auto">
-          <h3 className="font-semibold mb-4"> <a
+      </li>
+      <li>
+             <a
         href="#"
         target="_blank"
         rel="noopener noreferrer"
@@ -160,10 +154,10 @@ export default function Footer() {
       >
         <FaInstagram className="w-6 h-6" />
       </a>
-      </h3>
-      </div>
-          <div className="w-1/2 sm:w-1/3 md:w-auto">
-                <h3 className="font-semibold mb-4"> <a
+      </li>
+
+      <li>
+                 <a
         href="#"
         target="_blank"
         rel="noopener noreferrer"
@@ -172,8 +166,18 @@ export default function Footer() {
       >
         <FaTwitter className="w-6 h-6" />
       </a>
-      </h3>
-               </div>
+      </li>
+      </ul>
+
+     
+       
+              
+              
+          </div>
+      
+
+          
+         
         </div>
 
         {/* Bottom text */}

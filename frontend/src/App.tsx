@@ -13,7 +13,8 @@ import Calculator from "@/pages/calculator";
 import Contracts from "@/pages/contracts";
 import Story from "@/pages/story";
 import Invest from "@/pages/invest";
-import Ecosystem from "@/pages/ecosystem"
+import Ecosystem from "@/pages/ecosystem";
+import Wealth from "@/pages/wealth";
 import NotFound from "@/pages/not-found";
 
 
@@ -36,6 +37,7 @@ function Router() {
           <Route path="/story" component={Story} />
           <Route path="/invest" component={Invest} />
           <Route path="/partner-ecosystem" component={Ecosystem}/>
+          <Route path="/wealth-management" component={Wealth} />
           <Route component={NotFound} />
         </Switch>
       </main>
