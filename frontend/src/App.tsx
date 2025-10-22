@@ -12,9 +12,10 @@ import Analytics from "@/pages/analytics";
 import Calculator from "@/pages/calculator";
 import Contracts from "@/pages/contracts";
 import Story from "@/pages/story";
-import Invest from "@/pages/invest";
+//import Invest from "@/pages/invest";
 import Ecosystem from "@/pages/ecosystem";
-import Wealth from "@/pages/wealth";
+import Auth from "@/pages/auth";
+// import Wealth from "@/pages/wealth";
 import NotFound from "@/pages/not-found";
 
 
@@ -35,9 +36,10 @@ function Router() {
           <Route path="/calculator" component={Calculator} />
           <Route path="/contracts" component={Contracts} />
           <Route path="/story" component={Story} />
-          <Route path="/invest" component={Invest} />
+          {/* <Route path="/invest" component={Invest} /> */}
           <Route path="/partner-ecosystem" component={Ecosystem}/>
-          <Route path="/wealth-management" component={Wealth} />
+         <Route path="/auth" component={Auth} />
+          {/* <Route path="/wealth-management" component={Wealth} /> */}
           <Route component={NotFound} />
         </Switch>
       </main>

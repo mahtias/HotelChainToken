@@ -130,14 +130,14 @@ export default function Navbar() {
 
           {/* Auth links */}
           <li>
-            <Link href="/signup">
+            <Link href="/auth?tab=register">
               <span className="hover:text-black transition-colors duration-200">
                 Sign Up
               </span>
             </Link>
           </li>
           <li>
-            <Link href="/login">
+            <Link href="/auth?tab=login">
               <span className="hover:text-black transition-colors duration-200">
                 Login
               </span>
@@ -179,7 +179,7 @@ export default function Navbar() {
       >
         <ul className="flex flex-col px-4 py-3 space-y-1 font-medium text-neutral-800">
           <li>
-            <Link href="/property">
+            <Link href="/properties">
               <span className="block py-2 hover:text-black">Properties</span>
             </Link>
           </li>
@@ -248,12 +248,12 @@ export default function Navbar() {
 
           {/* Auth links */}
           <li>
-            <Link href="/signup">
+            <Link href="/auth?tab=register">
               <span className="block py-2 hover:text-black">Sign Up</span>
             </Link>
           </li>
           <li>
-            <Link href="/login">
+            <Link href="/auth?tab=login">
               <span className="block py-2 hover:text-black">Login</span>
             </Link>
           </li>

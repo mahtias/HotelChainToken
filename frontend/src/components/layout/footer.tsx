@@ -30,19 +30,19 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-neutral-400">
               <li>
                 <Link href="/properties" className="hover:text-white">
-                  Tokenization
+                  Properties
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/ecosystem" className="hover:text-white">
                   Partner Ecosystem
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
           {/* Advise */}
-          <div className="w-1/2 sm:w-1/3 md:w-auto">
+          {/* <div className="w-1/2 sm:w-1/3 md:w-auto">
             <h3 className="font-semibold mb-4">Advise</h3>
             <ul className="space-y-2 text-sm text-neutral-400">
               <li>
@@ -56,7 +56,7 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Learn */}
           <div className="w-1/2 sm:w-1/3 md:w-auto">
@@ -78,8 +78,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/where-different" className="hover:text-white">
-                  How We're Different
+                <Link href="/ecosystem" className="hover:text-white">
+                  Partner Ecosystem
                 </Link>
               </li>
                <li>
