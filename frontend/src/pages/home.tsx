@@ -2,57 +2,20 @@
 import React from "react";
 export default function Home() {
   const topHotels = [
-      {
-    name: "Burj Al Arab, Dubai",
-    location: "United Arab Emirates",
-    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde",
-  },
-  {
-    name: "The Plaza, New York",
-    location: "USA",
-    image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb2108b",
-  },
-  {
-    name: "Marina Bay Sands, Singapore",
-    location: "Singapore",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-  },
-  {
-    name: "Ritz Paris, France",
-    location: "France",
-    image: "https://images.unsplash.com/photo-1505691723518-36a1f88a37f2",
-  },
-  {
-    name: "Taj Mahal Palace, Mumbai",
-    location: "India",
-    image: "https://images.unsplash.com/photo-1503437313881-503a91226422",
-  },
-  {
-    name: "Four Seasons Resort Bora Bora",
-    location: "French Polynesia",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-  },
-  {
-    name: "The Beverly Hills Hotel",
-    location: "Los Angeles, USA",
-    image: "https://images.unsplash.com/photo-1501117716987-c8e1ecb2108b",
-  },
-  {
-    name: "Hotel de Paris, Monte Carlo",
-    location: "Monaco",
-    image: "https://images.unsplash.com/photo-1503437313881-503a91226422",
-  },
-  {
-    name: "The Savoy, London",
-    location: "United Kingdom",
-    image: "https://images.unsplash.com/photo-1551884170-09fb70a3a2d7",
-  },
-  {
-    name: "Aman Tokyo, Japan",
-    location: "Japan",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945",
-  },
-  ];
+  { name: "Burj Al Arab", location: "Dubai, UAE", image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde" },
+  { name: "The Plaza", location: "New York, USA", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbOYCoUjxZ2GQ6t454z_zJXPt33OQ41N1IvA&s" },
+  { name: "Marina Bay Sands", location: "Singapore", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqPWaZbi99r2BHP-A3SqXbZ5lRje6kqdXLnA&s" },
+  { name: "Ritz Paris", location: "Paris, France", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbmZSEWl1OO9rYqhNJKDccLatRkGO2sn-fgw&s" },
+  { name: "Taj Mahal Palace", location: "Mumbai, India", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-mS_2on2dLSgvDyQ0y93f04XPFgMALv8L_w&s" },
+  { name: "Four Seasons Bora Bora", location: "Bora Bora, French Polynesia", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyzju3nJaVljKt1D9JOVfCmGJaDyE2yOSUlg&s" },
+  { name: "The Beverly Hills Hotel", location: "Los Angeles, USA", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB-KAGoOM_v6LK6r9bJaLxkAV1zg0j5q7UMA&s" },
+  { name: "Hotel de Paris", location: "Monte Carlo, Monaco", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsF3cJf4ZDpFWOebtlGI0QCri-CjXG2KFoFg&s" },
+  { name: "The Savoy", location: "London, UK", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOuqojJ2jipRSJPRFNyPa_py13lIaOQ3RPhw&s" },
+  { name: "Aman Tokyo", location: "Tokyo, Japan", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945" },
+  { name: "Hong Kong", location: "Hk, Hong Kong", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRslLTqVHKPGeX5fXtgFXjleNHvs4MH6rhziA&s" },
+    { name: "Asinie Ivory coast", location: "Tokyo, Japan", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYErsA9GOJnfMNuAr-Om50DuLMP1r98ZmsWA&s" }
+
+];
 
   return (
     <div className="min-h-screen bg-neutral-50">
