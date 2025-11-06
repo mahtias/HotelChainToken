@@ -1,0 +1,21 @@
+[profile.default]
+src = "contracts"
+out = "artifacts"
+libs = ["lib"]
+solc_version = "0.8.19"
+via_ir = true
+optimizer = true
+optimizer_runs = 200
+
+remappings = ["@openzeppelin/=lib/openzeppelin-contracts/"]
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+
+[rpc_endpoints]
+base_sepolia = "${BASE_SEPOLIA_RPC_URL}"
+base_mainnet = "${BASE_MAINNET_RPC_URL}"
+
+[etherscan]
+# Using Etherscan v2 for Base networks
+base_sepolia = { key = "${ETHERSCAN_API_KEY}", chain = "base-sepolia" }
+base = { key = "${ETHERSCAN_API_KEY}", chain = "base" }
