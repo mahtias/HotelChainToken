@@ -11,7 +11,7 @@ if (!process.env.DATABASE_URL) {
 
 export default defineConfig({
   out: "./migrations",                    // where migration files will be stored
-  schema: "./src/db.ts",           // path to your schema file inside backend/src
+  schema: "./shared/schema.ts",           // path to your schema file inside backend/src
   dialect: "postgresql",
   dbCredentials: {
     url: process.env.DATABASE_URL!,

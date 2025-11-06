@@ -1,6 +1,9 @@
 import { useState, useMemo } from "react";
 import PropertySearch from "@/components/properties/property-search";
 import { Card, CardContent } from "@/components/ui/card";
+import { useAccount } from "wagmi";
+import axios from "axios";
+import VoucherPaymentFlow from "../components/VoucherPayments/VoucherPaymentFlow";
 
 interface Property {
   id: number;
@@ -16,6 +19,11 @@ export default function Properties() {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedMinInvestment, setSelectedMinInvestment] = useState("");
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
+  const [booking, setBooking] = useState<any>(null);
+
+  const { address, isConnected } = useAccount();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Example properties (you can replace with dynamic data later)
   const properties: Property[] = [
@@ -25,7 +33,7 @@ export default function Properties() {
       location: "New York, NY",
       type: "luxury",
       minInvestment: 1000,
-      image:"/assets/images/property1.jpg"
+      image: "/assets/images/property1.jpg",
     },
     {
       id: 2,
@@ -69,6 +77,7 @@ export default function Properties() {
     },
   ];
 
+  // Filtering logic
   const filteredProperties = useMemo(() => {
     return properties.filter((property) => {
       const matchesQuery =
@@ -110,6 +119,34 @@ export default function Properties() {
     setSelectedMinInvestment(minInvestment);
   };
 
+  // Booking flow handler
+  const handleBookNow = async (property: Property) => {
+    if (!isConnected || !address) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+
+    try {
+      const res = await axios.post(`${API_URL}/api/pms/book`, {
+        hotelId: property.id,
+        userWallet: address,
+        checkinDate: new Date(),
+        checkoutDate: new Date(Date.now() + 86400000), // +1 day
+        amount: property.minInvestment.toString(),
+      });
+
+      if (res.data.success) {
+        setSelectedProperty(property);
+        setBooking(res.data.booking);
+      } else {
+        alert("Booking failed: " + res.data.message);
+      }
+    } catch (err: any) {
+      console.error("Booking error:", err);
+      alert("Error: " + (err.response?.data?.message || err.message));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-neutral-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -118,7 +155,7 @@ export default function Properties() {
             Hotel Investment Properties
           </h1>
           <p className="text-neutral-600">
-            Discover tokenized hotel assets with transparent returns and professional management
+            Discover tokenized hotel assets with transparent returns and professional management.
           </p>
         </div>
 
@@ -130,7 +167,10 @@ export default function Properties() {
           {filteredProperties.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProperties.map((property) => (
-                <Card key={property.id} className="overflow-hidden shadow-md hover:shadow-lg transition">
+                <Card
+                  key={property.id}
+                  className="overflow-hidden shadow-md hover:shadow-lg transition"
+                >
                   <img
                     src={property.image}
                     alt={property.name}
@@ -144,9 +184,16 @@ export default function Properties() {
                     <p className="text-neutral-700 mb-2 capitalize">
                       Type: {property.type.replace("-", " ")}
                     </p>
-                    <p className="text-primary font-semibold">
+                    <p className="text-primary font-semibold mb-4">
                       Min Investment: ${property.minInvestment.toLocaleString()}
                     </p>
+
+                    <button
+                      onClick={() => handleBookNow(property)}
+                      className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+                    >
+                      Book Now
+                    </button>
                   </CardContent>
                 </Card>
               ))}
@@ -162,6 +209,19 @@ export default function Properties() {
             </div>
           )}
         </div>
+
+        {/* Payment Flow Section */}
+        {booking && selectedProperty && (
+          <div className="mt-12">
+            <h2 className="text-xl font-semibold text-center mb-4 text-neutral-900">
+              Complete Payment for {selectedProperty.name}
+            </h2>
+            <VoucherPaymentFlow
+              bookingId={booking.id}
+              expectedAmount={booking.amount}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

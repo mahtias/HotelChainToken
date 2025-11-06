@@ -54,7 +54,7 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 text-neutral-800 font-medium items-center">
-          {/* Property (no dropdown) */}
+          {/* Property (no dropdown) booking */}
           <li>
             <Link href="/properties">
               <span className="hover:text-black transition-colors duration-200">
@@ -62,7 +62,7 @@ export default function Navbar() {
               </span>
             </Link>
           </li>
-
+          
           {/* Portfolio (no dropdown) */}
           {/* <li>
             <Link href="/portfolio">
@@ -93,26 +93,26 @@ export default function Navbar() {
                   : "opacity-0 -translate-y-2 invisible"
               }`}
             >
-              <li>
+              <li >
                 <Link href="/blog">
-                  <span className="block px-4 py-2 hover:bg-gray-100">Blog</span>
+                  <span className="block px-4 py-2 hover:bg-gray-100">Blog </span>
                 </Link>
               </li>
-              <li>
+              <li >
                 <Link href="/whitepaper">
                   <span className="block px-4 py-2 hover:bg-gray-100">Whitepapers</span>
                 </Link>
               </li>
-              <li>
-                <Link href="/about-tokenization">
+              <li >
+                <Link href="/tokenization">
                   <span className="block px-4 py-2 hover:bg-gray-100">
-                    About Tokenization
+                     Tokenization 
                   </span>
                 </Link>
               </li>
-              <li>
+              <li >
                 <Link href="/contact">
-                  <span className="block px-4 py-2 hover:bg-gray-100">Contact</span>
+                  <span className="block px-4 py-2 hover:bg-gray-100">Contact </span>
                 </Link>
               </li>
               <li>
@@ -221,9 +221,9 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about-tokenization">
+                  <Link href="/tokenization">
                     <span className="block py-1 hover:text-black">
-                      About Tokenization
+                       Tokenization
                     </span>
                   </Link>
                 </li>

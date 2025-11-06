@@ -12,10 +12,14 @@ import Analytics from "@/pages/analytics";
 import Calculator from "@/pages/calculator";
 import Contracts from "@/pages/contracts";
 import Story from "@/pages/story";
-//import Invest from "@/pages/invest";
+import Blog from "@/pages/blog";
 import Ecosystem from "@/pages/ecosystem";
 import Auth from "@/pages/auth";
-// import Wealth from "@/pages/wealth";
+import Whitepaper from "@/pages/whitepaper";
+import BlogDetails from "./pages/bog-details";
+import Tokenized from "@/pages/tokenized";
+import Contact from "./pages/contact";
+import Bookings from "./pages/booking";
 import NotFound from "@/pages/not-found";
 
 
@@ -36,10 +40,14 @@ function Router() {
           <Route path="/calculator" component={Calculator} />
           <Route path="/contracts" component={Contracts} />
           <Route path="/story" component={Story} />
-          {/* <Route path="/invest" component={Invest} /> */}
+          <Route path="/blog" component={Blog} />
+          <Route path="/blog-details" component={BlogDetails} />
           <Route path="/partner-ecosystem" component={Ecosystem}/>
          <Route path="/auth" component={Auth} />
-          {/* <Route path="/wealth-management" component={Wealth} /> */}
+          <Route path="/booking" component={Bookings} />
+          <Route path="/whitepaper" component={Whitepaper} />
+          <Route path="/tokenization" component={Tokenized} />
+          <Route path="/contact" component={Contact} />
           <Route component={NotFound} />
         </Switch>
       </main>
